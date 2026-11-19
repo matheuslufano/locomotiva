@@ -30,5 +30,12 @@
     return data;
   }
 
-  window.LocomotivaApi = Object.freeze({ request });
+  function formatVoucher(settings) {
+    return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(settings?.voucherAmount ?? 200);
+  }
+  function showVoucher(settings) {
+    for (const element of document.querySelectorAll("[data-locomotiva-voucher-amount]"))
+      element.textContent = formatVoucher(settings);
+  }
+  window.LocomotivaApi = Object.freeze({ request, formatVoucher, showVoucher });
 })();

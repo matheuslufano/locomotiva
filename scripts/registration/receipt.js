@@ -23,6 +23,9 @@
     get("success-time").textContent = (submitted.period === "lunch" ? "Almoço" : "Jantar") + " às " + result.time;
     get("success-modality").textContent = submitted.modality === "STORIES" ? "4 Stories" : "1 Reels de 60 segundos";
     get("success-email").textContent = result.email;
+    window.LocomotivaApi.showVoucher(result);
+    const voucher = get("success-voucher");
+    if (voucher) voucher.textContent = "Voucher de " + window.LocomotivaApi.formatVoucher(result);
     get("protocol").textContent = result.protocol;
     history.pushState(null, "", "./solicitacao-recebida.html");
     document.title = "Solicitação recebida | Locomotiva Restaurante";

@@ -2,6 +2,7 @@
   try {
     const { config } = await window.LocomotivaApi.request("config");
     if (!config.published) return;
+    window.LocomotivaApi.showVoucher(config);
     for (const key of ["conditions", "privacy"]) {
       document.getElementById("locomotiva-footer-" + key).hidden = !config[key]?.trim();
     }

@@ -170,7 +170,7 @@ A rota pública `/campanha-locomotiva/` reúne apresentação, três fotografias
 
 `styles/landing.css` define as seções da apresentação, os cartões reutilizados e as superfícies em grafite, cobre e marfim. A arte de inspiração compõe o cabeçalho, a chamada final e o rodapé. O carrossel anterior permanece em **Ver mais fotos dos pratos**, com estilos em `styles/dish-carousel.css` e controles em `scripts/landing/dish-carousel.js`. [Referência de controles discretos](https://freefrontend.com/css-tabs/).
 
-As chamadas de participação levam a `condicoes.html`. O rodapé usa `scripts/landing/landing-documents.js` para consultar os documentos disponíveis e direcionar ao termo correspondente na primeira etapa.
+As chamadas de participação levam a `condicoes.html`. No desktop e no celular, **Reservar uma data** posiciona e foca o título da primeira etapa depois de carregar o formulário. O rodapé usa `scripts/landing/landing-documents.js` para consultar os documentos disponíveis e direcionar ao termo correspondente na primeira etapa.
 
 O refinamento visual utiliza títulos em Georgia, logo branca sobre grafite, cobre nas ações e cartões com ícones em superfícies suaves. As fotos recebem legendas sobre degradê para leitura. As classes existentes foram revistas em sua origem, com tokens de borda e raio em `styles/landing.css`.
 

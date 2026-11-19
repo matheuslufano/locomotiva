@@ -1,3 +1,4 @@
+const { formatVoucher, showVoucher } = window.LocomotivaApi;
 /* Personal data lives only in this page's memory. The backend is authoritative. */
 const $ = (id) => document.getElementById(`locomotiva-${id}`);
 let config,
@@ -139,7 +140,7 @@ function showStep(value, focus = true, navigate = true) {
 }
 function documents() {
   $("documents").replaceChildren();
-  const commercial = `Visitas nas datas oferecidas no formulário. Um influenciador por data.\nVoucher de R$ 200: ${config.voucher}\nAcompanhantes: ${config.companions}\nExcedente: ${config.excess}\nSaldo restante: ${config.balance}\nConteúdo: 2 Stories de aquecimento antes da visita + 4 Stories OU 1 Reels de 60 segundos no dia da visita.\nPublicação: ${config.publication}\nPerfis: ${config.tags}\nCancelamento e ausência: ${config.cancellation}\nEndereço: ${config.address}\nContato: ${config.contact}\n\n${config.conditions}`;
+  const commercial = `Visitas nas datas oferecidas no formulário. Um influenciador por data.\nVoucher de ${formatVoucher(config)}: ${config.voucher}\nAcompanhantes: ${config.companions}\nExcedente: ${config.excess}\nSaldo restante: ${config.balance}\nConteúdo: 2 Stories de aquecimento antes da visita + 4 Stories OU 1 Reels de 60 segundos no dia da visita.\nPublicação: ${config.publication}\nPerfis: ${config.tags}\nCancelamento e ausência: ${config.cancellation}\nEndereço: ${config.address}\nContato: ${config.contact}\n\n${config.conditions}`;
   const image = `${config.imageTerm}\n\nCanais: ${config.imageChannels}\nFinalidade: ${config.imagePurpose}\nPrazo: ${config.imageDuration}\nEdição: ${config.imageEditing}\nImpulsionamento: ${config.imagePromotion}`;
   for (const [key, title, text] of [
     ["conditions", "Condições completas da campanha", commercial],
@@ -173,6 +174,7 @@ async function load() {
   const initial = !config,
     changed = config && config.revision !== result.config.revision;
   config = result.config;
+  showVoucher(config);
   availability = result.availability;
   if (changed) {
     for (const k of ["conditions", "image", "privacy"])
@@ -220,6 +222,11 @@ async function load() {
     showStep(openingStep, false, false);
     history.replaceState({ step: openingStep }, "", new URL(stepPages[openingStep - 1] + location.hash, location.href));
     const target = location.hash.slice(1);
+    if (target === "locomotiva-registration-title") {
+      const title = $("registration-title");
+      title.focus({ preventScroll: true });
+      title.scrollIntoView({ block: "start" });
+    }
     if (target.startsWith("locomotiva-document-")) {
       const documentDetails = document.getElementById(target);
       if (documentDetails) {
@@ -297,9 +304,9 @@ function review() {
   $("visit-summary-date").textContent = selectedDate
     ? selectedDate.split("-").reverse().join("/") + " • " + period + (d.time ? " às " + d.time : "")
     : "Selecione sua visita";
-  $("visit-summary-content").textContent = (d.modality === "STORIES" ? "4 Stories" : "1 Reels de 60 segundos") + " • Voucher R$ 200";
+  $("visit-summary-content").textContent = (d.modality === "STORIES" ? "4 Stories" : "1 Reels de 60 segundos") + ` • Voucher ${formatVoucher(config)}`;
   $("review").textContent =
-    `Revise sua solicitação\n\n${d.name}\nCPF: ***.***.***-${d.cpf.replace(/\D/g, "").slice(-2)}\n${d.email} · ${d.phone}\n${d.city} / ${d.uf}\n${d.profileUrl}\n\nVisita: ${selectedDate ? selectedDate.split("-").reverse().join("/") : "Escolha uma data"} às ${d.time || "—"} (${d.period === "lunch" ? "almoço" : d.period === "dinner" ? "jantar" : "selecione o período"})\nVoucher de R$ 200: ${config.voucher}\nAquecimento: 2 Stories antes da visita.\nConteúdo presencial: ${d.modality === "STORIES" ? "4 Stories" : "1 Reels de 60 segundos"}\n\nSua solicitação será analisada. Aguarde aprovação expressa por e-mail.`;
+    `Revise sua solicitação\n\n${d.name}\nCPF: ***.***.***-${d.cpf.replace(/\D/g, "").slice(-2)}\n${d.email} · ${d.phone}\n${d.city} / ${d.uf}\n${d.profileUrl}\n\nVisita: ${selectedDate ? selectedDate.split("-").reverse().join("/") : "Escolha uma data"} às ${d.time || "—"} (${d.period === "lunch" ? "almoço" : d.period === "dinner" ? "jantar" : "selecione o período"})\nVoucher de ${formatVoucher(config)}: ${config.voucher}\nAquecimento: 2 Stories antes da visita.\nConteúdo presencial: ${d.modality === "STORIES" ? "4 Stories" : "1 Reels de 60 segundos"}\n\nSua solicitação será analisada. Aguarde aprovação expressa por e-mail.`;
 }
 function validateProfile() {
   let url;
