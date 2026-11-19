@@ -6,6 +6,7 @@
     "dev": "node scripts/run-next.cjs",
     "start": "node scripts/run-next.cjs --production",
     "check": "node --check scripts/dev-server.cjs && node --check scripts/shared/campaign-api.js && node --check scripts/registration/campaign.js && node --check scripts/registration/registration-loader.js && node --check scripts/landing/landing-navigation.js && node --check scripts/landing/landing-documents.js && node --check scripts/landing/dish-carousel.js && node --check scripts/run-next.cjs && node --check scripts/registration/receipt.js && node --check scripts/registration/visit-controls.js && node --check scripts/registration/desktop-layout.js",
+    "vercel-build": "next build",
     "build": "next build",
     "dev:api": "node scripts/dev-server.cjs"
   },

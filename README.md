@@ -203,6 +203,12 @@ O App Router está em `app/`, a configuração em `next.config.mjs` e a iniciali
 Se a porta 3002 estiver ocupada, o comando informa o endereço existente e encerra antes de iniciar novos processos. Encerre a instância anterior com Ctrl+C. Para usar outra porta no Git Bash: `LOCOMOTIVA_WEB_PORT=3003 npm run dev`.
 
 
+## Publicação na Vercel
+
+Configure o Root Directory do projeto como `locomotiva-reseva` e mantenha o install command `npm ci` e o build command `npm run vercel-build` (também definidos em `vercel.json`). Adicione `LOCOMOTIVA_BACKEND_URL` como variável de ambiente para Preview e Production, apontando para a origem HTTPS pública do serviço `afiliados-backend`, sem acrescentar `/locomotiva`. O build falha com uma mensagem explícita se a variável estiver ausente, evitando publicar uma página cuja API aponta para localhost. Após salvar as configurações, faça novo deploy.
+
+O frontend Vercel apenas reescreve `/locomotiva/*` para o backend existente. O backend precisa estar implantado, acessível por HTTPS e configurado com as variáveis próprias, a migração da campanha e os arquivos públicos necessários. A Vercel não hospeda o PostgreSQL nem inicia o servidor Express por esta configuração.
+
 ## Variáveis de ambiente do site
 
 O arquivo local `.env.local` configura `LOCOMOTIVA_BACKEND_URL=http://127.0.0.1:3001` e `LOCOMOTIVA_WEB_PORT=3002`. O modelo versionável é `.env.example`. Os inicializadores usam `@next/env` para carregar o mesmo ambiente do Next.js antes de escolher portas ou consultar a API.
