@@ -41,11 +41,6 @@
       // Keep the native select available for validation, keyboard input and fallback.
       select.after(group);
       select.classList.add("registration-choice-select");
-      select.addEventListener("invalid", (event) => {
-        event.preventDefault();
-        group.querySelector("button")?.focus();
-        document.getElementById("locomotiva-status").textContent = "Escolha " + group.getAttribute("aria-label").toLowerCase() + " para continuar.";
-      });
       select.addEventListener("change", sync);
       groups.set(select, group);
     }

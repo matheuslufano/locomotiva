@@ -6,7 +6,7 @@ Página pública em HTML/CSS/JavaScript, servida pelo Express do **afiliados-bac
 
 A página usa Express e PostgreSQL do projeto irmão `afiliados-backend`. O frontend é executado pelo Next.js, com React instalado. As páginas existentes continuam em HTML, CSS e JavaScript, servidas pelo Route Handler em `app/campanha-locomotiva/[[...file]]/route.js`. As dependências do backend devem estar instaladas com `npm.cmd ci` na pasta do backend.
 
-Na pasta `locomotiva-reseva`, execute `npm.cmd run dev` e acesse **http://127.0.0.1:3002/campanha-locomotiva/**. O comando inicia Next.js na porta 3002 e, quando necessário, o serviço Express na porta 3001. O servidor local em `scripts/dev-server.cjs` reúne os arquivos públicos e as rotas reais da campanha. Ele não executa migrações nem inicia tarefas de envio de e-mail. O processamento de e-mail permanece no servidor completo do Afiliados Netbox.
+Inicie `npm.cmd run dev` em `afiliados-backend` na porta 3001. Em `locomotiva-reseva`, execute `npm.cmd run dev` e acesse **http://127.0.0.1:3002/campanha-locomotiva/**. O inicializador verifica a saúde do banco e a configuração da campanha antes de iniciar o Next.js. Para testar com o build de produção, execute `npm.cmd run build` e depois `npm.cmd start`.
 
 O Live Server na porta 5500 também é suportado para prévia: `scripts/shared/campaign-api.js` direciona suas chamadas locais ao mesmo serviço em 127.0.0.1:3001. Em produção, a API é relativa ao endereço da página, preservando inclusive o prefixo `/api-backend/` do painel. Para uma porta diferente, ajuste `LOCOMOTIVA_BACKEND_URL` em `.env.local` e execute pelo Next.js. A prévia pelo Live Server continua usando o padrão 3001.
 
@@ -75,7 +75,7 @@ Marcar **Abrir inscrições** somente após aprovação. O servidor impede abert
 Apresentação e aviso de aprovação precedem o formulário. Ordem fixa:
 
 1. Documentos completos em controles expansíveis e três aceites separados, inicialmente desmarcados.
-2. Dados e perfil. CPF com dígitos verificadores, e-mails iguais, WhatsApp com DDD, UF, usuário/link do Instagram correspondentes e confirmação declarada do perfil.
+2. Dados e perfil. CPF com dígitos verificadores, e-mails iguais, WhatsApp com DDD, UF e link de perfil do Instagram. O nome do participante é independente do perfil. O usuário do Instagram é extraído do link.
 3. Disponibilidade real, período, chegada, modalidade e revisão. Datas ocupadas ficam desabilitadas, sem revelar o participante.
 
 A disponibilidade é atualizada ao entrar na terceira etapa e a cada 30 segundos enquanto ela estiver aberta. O envio sempre verifica novamente no servidor. Ao mudar a versão dos documentos, os três aceites são desmarcados e o fluxo volta à primeira etapa. Cada inscrição guarda o documento completo, versão, controles e horário de aceite registrado no servidor no envio definitivo.
@@ -84,7 +84,7 @@ Duplo clique é bloqueado no cliente. A chave aleatória de idempotência e o ha
 
 ## Reservas, convites e conteúdo
 
-- A transação grava inscrição, reserva, aceites, auditoria e e-mail em fila. Lock transacional da campanha serializa decisões concorrentes. Índices parciais únicos impedem dois registros ativos por data, CPF, Instagram e e-mail, inclusive fora da aplicação.
+- A transação grava inscrição, reserva, aceites, auditoria e e-mail em fila. O índice parcial único impede dois registros ativos na mesma data. A mesma pessoa pode enviar novas solicitações em datas diferentes usando o mesmo CPF, Instagram e e-mail. A migração `20261119160000_locomotiva_repeat_participation` remove os índices antigos de unicidade por participante.
 - Ativas: `PENDING`, `CONFIRMED`, `ATTENDED`, `ABSENT`. Recusa e cancelamento liberam a data, desde que ainda esteja configurada e dentro da antecedência permitida.
 - Transições: em análise → confirmada/recusada/cancelada; confirmada → cancelada/compareceu/não compareceu. Registros encerrados não são reativados. Presença/ausência somente após o horário da visita.
 - Troca de data/horário é permitida em análise ou confirmada, verifica conflitos e cria comunicação atualizada. Edição concorrente dos detalhes usa a revisão do cadastro.
@@ -94,11 +94,13 @@ Duplo clique é bloqueado no cliente. A chave aleatória de idempotência e o ha
 
 ## Fotos e proteção de dados
 
-Não foi encontrada integração autorizada para obter foto de qualquer perfil do Instagram. O endpoint de perfil valida/normaliza o endereço e retorna `UNAVAILABLE`, sem buscar URLs externas. Isso evita scraping, acesso a redes internas e redirecionamentos. Não se declara verificação de titularidade.
+Ao sair do campo do link do Instagram, a etapa 2 consulta o perfil e abre o diálogo de confirmação. Quando o backend encontra uma foto, ela aparece no diálogo e no cartão do perfil na segunda coluna. Confirmar mantém a foto até o envio da solicitação. Fechar sem confirmar restaura a imagem anterior. O participante pode substituir a foto manualmente. Se a foto estiver indisponível, o link ainda pode ser confirmado.
+
+O backend pode consultar os metadados da página pública do Instagram sem login. A consulta retorna indisponível quando o Instagram não entrega metadados de perfil ou bloqueia a requisição. Para desabilitar a consulta direta, use `LOCOMOTIVA_INSTAGRAM_PUBLIC_LOOKUP=false`. Quando configurado, o Meta Business Discovery tem prioridade. As variáveis `LOCOMOTIVA_INSTAGRAM_ACCOUNT_ID`, `LOCOMOTIVA_INSTAGRAM_GRAPH_VERSION` e `LOCOMOTIVA_INSTAGRAM_TOKEN` ficam no backend. A busca não comprova titularidade.
 
 A foto opcional manual aceita PNG/JPEG/WebP até 500 KB, verifica assinatura e registra origem `PARTICIPANT_UPLOAD` / estado `MANUAL`. Fica no PostgreSQL como imagem fornecida pelo participante, acessível pelo painel autorizado. Sem foto, usa placeholder. Uma integração automática futura exige provedor autorizado e avaliação das permissões de uso/armazenamento; nenhuma credencial ou API fictícia foi presumida.
 
-CPF criptografado com AES-256-GCM, com HMAC separado para detectar duplicidade. Listagens e detalhes padrão recebem somente máscara. CPF não é enviado em e-mails, URLs, logs de erro ou armazenamento persistente do navegador. Os outros dados pessoais ficam no PostgreSQL protegido pelos controles de acesso existentes. Backups, retenção e atendimento aos titulares devem seguir o aviso aprovado. Rotas da campanha usam `no-store`; nunca configure CDN para armazenar respostas pessoais.
+CPF criptografado com AES-256-GCM, com HMAC separado. Listagens e detalhes padrão recebem somente máscara. CPF não é enviado em e-mails, URLs, logs de erro ou armazenamento persistente do navegador. Os outros dados pessoais ficam no PostgreSQL protegido pelos controles de acesso existentes. Backups, retenção e atendimento aos titulares devem seguir o aviso aprovado. Rotas da campanha usam `no-store`; nunca configure CDN para armazenar respostas pessoais.
 
 Antisspam: honeypot e limite persistido de 30 submissões por endereço de conexão a cada 15 minutos. Não se confia no `X-Forwarded-For` arbitrário, dado o `trust proxy` global existente. Se houver proxy reverso, conexões podem compartilhar o mesmo limite; configurar regras adicionais de borda e uma cadeia de proxy confiável antes de ampliar tráfego. Não há CAPTCHA fictício.
 
@@ -193,9 +195,9 @@ Com autoriza??o, foi aplicado somente o SQL de `20261117120000_locomotiva_campai
 ## Next.js
 
 - `npm.cmd install`: instala as dependências do frontend.
-- `npm.cmd run dev`: inicia Next.js em http://127.0.0.1:3002 e reutiliza ou inicia a API local.
+- `npm.cmd run dev`: inicia Next.js em http://127.0.0.1:3002 com o backend local já em execução.
 - `npm.cmd run build`: compila o Next.js.
-- `npm.cmd start`: executa o build de produção e a API local.
+- `npm.cmd start`: serve o build de produção e consulta a API local já em execução.
 - `npm.cmd run dev:api`: inicia apenas a API pública local.
 
 O App Router está em `app/`, a configuração em `next.config.mjs` e a inicialização conjunta em `scripts/run-next.cjs`. O Route Handler aceita somente arquivos públicos com extensões permitidas. A API usa rewrite para o Express, configurável por `LOCOMOTIVA_BACKEND_URL` no ambiente do Next.js. A instalação acrescenta Next.js, React e React DOM ao `package.json` e fixa as versões resolvidas em `package-lock.json`. A conversão dos formulários para componentes React não faz parte desta instalação.
@@ -205,9 +207,11 @@ Se a porta 3002 estiver ocupada, o comando informa o endereço existente e encer
 
 ## Publicação na Vercel
 
-Configure o Root Directory do projeto como `locomotiva-reseva` e mantenha o install command `npm ci` e o build command `npm run vercel-build` (também definidos em `vercel.json`). Adicione `LOCOMOTIVA_BACKEND_URL` como variável de ambiente para Preview e Production, apontando para a origem HTTPS pública do serviço `afiliados-backend`, sem acrescentar `/locomotiva`. O build falha com uma mensagem explícita se a variável estiver ausente, evitando publicar uma página cuja API aponta para localhost. Após salvar as configurações, faça novo deploy.
+O projeto Vercel existente usa Root Directory `.` porque este repositório contém somente o site da campanha. Mantenha o install command `npm ci` e o build command `npm run vercel-build` (também definidos em `vercel.json`). Configure `LOCOMOTIVA_BACKEND_URL` nos ambientes Preview e Production com `https://afiliado.netboxfibra.com.br/api-backend`, sem acrescentar `/locomotiva`. O build falha com uma mensagem explícita se a variável estiver ausente, evitando publicar uma página cuja API aponta para localhost.
 
-O frontend Vercel apenas reescreve `/locomotiva/*` para o backend existente. O backend precisa estar implantado, acessível por HTTPS e configurado com as variáveis próprias, a migração da campanha e os arquivos públicos necessários. A Vercel não hospeda o PostgreSQL nem inicia o servidor Express por esta configuração.
+Compartilhe o alias estável de Production `https://locomotiva-six.vercel.app`. URLs individuais de deployments Vercel podem exigir login mesmo quando o alias de produção é público; não desative a proteção geral do projeto para contornar isso.
+
+O frontend Vercel reescreve `/locomotiva/*` para o backend existente. O backend precisa estar implantado, acessível por HTTPS e configurado com as variáveis próprias, a migração da campanha e os arquivos públicos necessários. A Vercel não hospeda o PostgreSQL nem inicia o servidor Express por esta configuração.
 
 ## Variáveis de ambiente do site
 
@@ -215,7 +219,7 @@ O arquivo local `.env.local` configura `LOCOMOTIVA_BACKEND_URL=http://127.0.0.1:
 
 As chamadas do navegador usam `/locomotiva/*` na origem do Next.js e o rewrite encaminha para o backend configurado. O endereço da API permanece no servidor. As credenciais de PostgreSQL e SMTP continuam exclusivamente no ambiente do backend. Reinicie `npm run dev` após editar o ambiente; para produção, refaça o build antes de iniciar.
 
-O inicializador reutiliza uma API que já esteja respondendo. Se necessário, inicia o serviço local de campanha na porta definida pela URL. Endereços de backend externos devem ser iniciados separadamente.
+O padrão local é `LOCOMOTIVA_LOCAL_PREVIEW=false`. Assim a página respeita o estado de inscrições do PostgreSQL local, do mesmo modo que a Vercel respeita o estado do backend de produção. O servidor auxiliar `dev:api` é destinado à prévia via Live Server e deve usar uma porta livre quando o backend completo estiver ativo.
 
 O aviso de inscrições fechadas corresponde a `published: false` retornado pela API. Nesse estado a apresentação da primeira etapa continua visível, com aceites e avanço desabilitados. Configure os termos e demais campos obrigatórios no painel antes de abrir a campanha. O script de cadastro utiliza UTF-8 para preservar os acentos nas mensagens.
 
@@ -230,6 +234,8 @@ A revisão 2 do rascunho incorpora as regras aprovadas na conversa: alimentos e 
 
 
 ## Recebimento da solicitação e controles de visita
+
+As três etapas usam o diálogo de erro do formulário compartilhado. Erros de campos obrigatórios, validação, foto ou envio exibem o detalhe em vermelho. O botão Fechar mensagem e a tecla Esc fecham o diálogo. Para erros de campo, o foco retorna ao controle correspondente.
 
 `solicitacao-recebida.html` é a quarta tela. O resumo com data, período, modalidade, e-mail e protocolo é preenchido por `scripts/registration/receipt.js` somente após resposta de sucesso da API. Os dados ficam na memória da página. Abrir diretamente ou recarregar essa URL apresenta uma orientação para concluir o cadastro, sem inventar uma confirmação ou persistir dados pessoais no histórico da URL.
 
@@ -248,7 +254,7 @@ A primeira etapa não é mais substituída por um aviso de inscrições fechadas
 
 O backend mantém `published: false` e o envio permanece bloqueado. Não são criados horários fictícios. A seleção da visita depende dos horários reais configurados no painel. Para desativar, use `LOCOMOTIVA_LOCAL_PREVIEW=false` e reinicie o desenvolvimento.
 
-Na prévia local, o botão **Escolher visita (prévia)** permite avançar sem preencher dados pessoais ou validar o Instagram. A campanha publicada continua exigindo os campos obrigatórios, e-mails coincidentes e perfil correspondente. O envio real permanece bloqueado na prévia.
+Na prévia local, o botão **Escolher visita (prévia)** permite avançar sem preencher dados pessoais ou validar o Instagram. A campanha publicada exige os campos obrigatórios, e-mails coincidentes e um link válido de perfil. O envio real permanece bloqueado na prévia.
 
 Na prévia local, abrir diretamente ou recarregar `seus-dados.html` e `sua-visita.html` mantém a etapa solicitada. Os campos pessoais não são persistidos ao recarregar. No cadastro real, o acesso direto continua iniciando pelas condições.
 
@@ -266,6 +272,8 @@ A composição final do recebimento segue as proporções da referência: placa 
 
 
 ## Layout dos dados pessoais
+
+Na etapa 2, o CPF recebe a máscara `000.000.000-00` durante a digitação. Os dígitos verificadores são conferidos quando o número está completo. Um CPF incompleto ou inválido bloqueia o avanço e abre o modal de erro ao tentar continuar. A API confirma a validade novamente no envio.
 
 A etapa 2 utiliza `styles/personal-step.css`, isolada por `data-registration-step="2"`, para reproduzir a referência: placa da marca, cartão marfim com borda interna, campos em uma coluna, Cidade/UF na mesma linha, nome e foto no cartão de perfil, upload opcional e botões Voltar/Escolher visita lado a lado.
 

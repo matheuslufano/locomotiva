@@ -30,6 +30,74 @@ const api = window.LocomotivaApi.request;
 function message(text) {
   $("status").textContent = text;
 }
+const errorDialog = $("error-dialog");
+let errorField = null;
+function showError(text, field = null) {
+  message("");
+  $("error-message").textContent = text || "Ocorreu um erro. Tente novamente.";
+  errorField = field;
+  if (!errorDialog.open) errorDialog.showModal();
+}
+$("close-error").addEventListener("click", () => errorDialog.close());
+errorDialog.addEventListener("close", () => {
+  if (errorField?.getClientRects().length) errorField.focus();
+  errorField = null;
+});
+
+const acceptanceErrors = {
+  "locomotiva-accept-conditions": "Leia e aceite as condições da campanha para continuar.",
+  "locomotiva-accept-image": "Leia e aceite a autorização de uso de imagem para continuar.",
+  "locomotiva-accept-privacy": "Leia e aceite o aviso de privacidade para continuar.",
+};
+const cpfField = $("cpf");
+function cpfValid(digits) {
+  if (!/^\d{11}$/.test(digits) || /^(\d)\1{10}$/.test(digits)) return false;
+  return [9, 10].every((length) => {
+    const sum = [...digits.slice(0, length)].reduce((total, digit, index) =>
+      total + Number(digit) * (length + 1 - index), 0);
+    return Number(digits[length]) === ((sum * 10) % 11) % 10;
+  });
+}
+function updateCpf(showIncomplete = false) {
+  const position = cpfField.selectionStart;
+  const digitsBeforeCursor = cpfField.value.slice(0, position ?? 0).replace(/\D/g, "").length;
+  const digits = cpfField.value.replace(/\D/g, "").slice(0, 11);
+  const formatted = digits.replace(/^(\d{3})(\d)/, "$1.$2")
+    .replace(/^(\d{3}\.\d{3})(\d)/, "$1.$2")
+    .replace(/^(\d{3}\.\d{3}\.\d{3})(\d)/, "$1-$2");
+  if (cpfField.value !== formatted) {
+    cpfField.value = formatted;
+    let cursor = 0, seen = 0;
+    while (cursor < formatted.length && seen < digitsBeforeCursor) {
+      if (/\d/.test(formatted[cursor])) seen++;
+      cursor++;
+    }
+    if (position !== null) cpfField.setSelectionRange(cursor, cursor);
+  }
+  const valid = cpfValid(digits);
+  const error = digits.length < 11 ? "Informe os 11 dígitos do CPF."
+    : valid ? "" : "CPF inválido. Confira os dígitos.";
+  const feedback = $("cpf-feedback");
+  cpfField.setCustomValidity(error);
+  const showError = Boolean(error && (showIncomplete || digits.length === 11));
+  cpfField.setAttribute("aria-invalid", String(showError));
+  feedback.textContent = showError ? error : valid ? "CPF válido." : "";
+  feedback.hidden = !feedback.textContent;
+}
+cpfField.addEventListener("input", () => updateCpf());
+cpfField.addEventListener("blur", () => updateCpf(Boolean(cpfField.value)));
+form.addEventListener("invalid", (event) => {
+  event.preventDefault();
+  // Native validation can emit one event per field. Show the first problem.
+  if (errorDialog.open) return;
+  const field = event.target;
+  const label = field.getAttribute("aria-label") || field.labels?.[0]?.textContent.trim().replace(/\s+/g, " ");
+  const choiceButton = document.getElementById(field.id + "-choices")?.querySelector("button");
+  const detail = (field === cpfField ? field.validationMessage : acceptanceErrors[field.id]) ||
+    (choiceButton && label ? `Escolha uma opção para: ${label}.`
+      : [label, field.validationMessage].filter(Boolean).join(": "));
+  showError(detail, choiceButton || field);
+}, true);
 function showStep(value, focus = true, navigate = true) {
   step = value;
   $("registration").dataset.step = String(step);
@@ -71,7 +139,7 @@ function showStep(value, focus = true, navigate = true) {
 }
 function documents() {
   $("documents").replaceChildren();
-  const commercial = `Visitas: 21 a 30 de novembro de 2026. Um influenciador por data.\nVoucher de R$ 200: ${config.voucher}\nAcompanhantes: ${config.companions}\nExcedente: ${config.excess}\nSaldo restante: ${config.balance}\nConteúdo: 2 Stories de aquecimento antes da visita + 4 Stories OU 1 Reels de 60 segundos no dia da visita.\nPublicação: ${config.publication}\nPerfis: ${config.tags}\nCancelamento e ausência: ${config.cancellation}\nEndereço: ${config.address}\nContato: ${config.contact}\n\n${config.conditions}`;
+  const commercial = `Visitas nas datas oferecidas no formulário. Um influenciador por data.\nVoucher de R$ 200: ${config.voucher}\nAcompanhantes: ${config.companions}\nExcedente: ${config.excess}\nSaldo restante: ${config.balance}\nConteúdo: 2 Stories de aquecimento antes da visita + 4 Stories OU 1 Reels de 60 segundos no dia da visita.\nPublicação: ${config.publication}\nPerfis: ${config.tags}\nCancelamento e ausência: ${config.cancellation}\nEndereço: ${config.address}\nContato: ${config.contact}\n\n${config.conditions}`;
   const image = `${config.imageTerm}\n\nCanais: ${config.imageChannels}\nFinalidade: ${config.imagePurpose}\nPrazo: ${config.imageDuration}\nEdição: ${config.imageEditing}\nImpulsionamento: ${config.imagePromotion}`;
   for (const [key, title, text] of [
     ["conditions", "Condições completas da campanha", commercial],
@@ -111,7 +179,7 @@ async function load() {
       $(`accept-${k}`).checked = false;
     reachedStep = 1;
     showStep(1);
-    message(
+    showError(
       "Os documentos foram atualizados. Leia e aceite a nova versão para continuar.",
     );
   }
@@ -141,8 +209,10 @@ async function load() {
     }
   }
   $("next").disabled = !config.published && !config.localPreview;
-  $("registration-closed").hidden = config.published;
-  if (config.localPreview) {
+  $("registration-closed").hidden = config.published && !config.localTest;
+  if (config.localTest) {
+    $("registration-closed").textContent = "Modo de teste local: preencha somente com dados fictícios. Nenhum e-mail será enviado.";
+  } else if (config.localPreview) {
     $("registration-closed").textContent = "Prévia local: você pode testar as etapas sem preencher dados pessoais. Os aceites são simulados e o envio de inscrições reais está desabilitado.";
   }
   if (initial) {
@@ -229,21 +299,22 @@ function review() {
     : "Selecione sua visita";
   $("visit-summary-content").textContent = (d.modality === "STORIES" ? "4 Stories" : "1 Reels de 60 segundos") + " • Voucher R$ 200";
   $("review").textContent =
-    `Revise sua solicitação\n\n${d.name}\nCPF: ***.***.***-${d.cpf.replace(/\D/g, "").slice(-2)}\n${d.email} · ${d.phone}\n${d.city} / ${d.uf}\n${d.instagram} · ${d.profileUrl}\n\nVisita: ${selectedDate ? selectedDate.split("-").reverse().join("/") : "Escolha uma data"} às ${d.time || "—"} (${d.period === "lunch" ? "almoço" : d.period === "dinner" ? "jantar" : "selecione o período"})\nVoucher de R$ 200: ${config.voucher}\nAquecimento: 2 Stories antes da visita.\nConteúdo presencial: ${d.modality === "STORIES" ? "4 Stories" : "1 Reels de 60 segundos"}\n\nSua solicitação será analisada. Aguarde aprovação expressa por e-mail.`;
+    `Revise sua solicitação\n\n${d.name}\nCPF: ***.***.***-${d.cpf.replace(/\D/g, "").slice(-2)}\n${d.email} · ${d.phone}\n${d.city} / ${d.uf}\n${d.profileUrl}\n\nVisita: ${selectedDate ? selectedDate.split("-").reverse().join("/") : "Escolha uma data"} às ${d.time || "—"} (${d.period === "lunch" ? "almoço" : d.period === "dinner" ? "jantar" : "selecione o período"})\nVoucher de R$ 200: ${config.voucher}\nAquecimento: 2 Stories antes da visita.\nConteúdo presencial: ${d.modality === "STORIES" ? "4 Stories" : "1 Reels de 60 segundos"}\n\nSua solicitação será analisada. Aguarde aprovação expressa por e-mail.`;
 }
 function validateProfile() {
-  const handle = $("instagram").value.replace(/^@/, "").toLowerCase();
   let url;
   try {
     url = new URL($("profile-url").value);
   } catch {
     throw new Error("Informe o link completo do Instagram.");
   }
+  const handle = url.pathname.replace(/^\//, "").replace(/\/$/, "").toLowerCase();
   if (
-    !/^[a-z0-9_.]{1,30}$/.test(handle) ||
+    !/^[a-z0-9_](?:[a-z0-9_.]{0,28}[a-z0-9_])?$/.test(handle) ||
+    handle.includes("..") ||
+    ["p", "reel", "reels", "stories", "explore", "accounts"].includes(handle) ||
     url.protocol !== "https:" ||
     !["instagram.com", "www.instagram.com"].includes(url.hostname) ||
-    url.pathname.replace(/\/$/, "").toLowerCase() !== `/${handle}` ||
     url.search ||
     url.hash ||
     url.port ||
@@ -251,12 +322,14 @@ function validateProfile() {
     url.password
   )
     throw new Error(
-      "O usuário e o link do Instagram devem corresponder ao mesmo perfil.",
+      "Informe um link válido de perfil do Instagram, como https://www.instagram.com/seuperfil/.",
     );
+  return `https://www.instagram.com/${handle}/`;
 }
 $("next").onclick = async () => {
   if (!config?.published && !config?.localPreview) return;
   const previewingPersonalData = config.localPreview && step === 2;
+  if (step === 2 && !previewingPersonalData) updateCpf(true);
   if (!previewingPersonalData && !form.reportValidity()) return;
   try {
     if (step === 2) {
@@ -267,7 +340,11 @@ $("next").onclick = async () => {
         ) {
           throw new Error("Os e-mails não conferem.");
         }
-        validateProfile();
+        const profileUrl = validateProfile();
+        if (confirmedProfileUrl !== profileUrl) {
+          await checkProfile(profileUrl);
+          return;
+        }
       }
       const revision = config.revision;
       await load();
@@ -276,7 +353,7 @@ $("next").onclick = async () => {
     message("");
     showStep(step + 1);
   } catch (e) {
-    message(e.message);
+    showError(e.message);
   }
 };
 $("back").onclick = () => showStep(step - 1);
@@ -290,39 +367,103 @@ for (const uf of "AC AL AP AM BA CE DF ES GO MA MT MS MG PA PB PR PE PI RJ RN RS
   " ",
 ))
   $("uf").add(new Option(uf, uf));
-for (const key of ["instagram", "profile-url"])
-  $(key).oninput = () => {
-    $("profile-confirmed").checked = false;
-    $("open-profile").hidden = true;
-  };
+const profileDialog = $("profile-dialog");
+let confirmedProfileUrl = "", importedPhoto = null, proposedProfile = null;
+let profileLookup = "", profileRequest = 0;
+const profilePlaceholder = "./profile-placeholder.svg";
+function showProfilePhoto(value) {
+  $("photo-preview").src = value || profilePlaceholder;
+}
+profileDialog.addEventListener("close", () => {
+  showProfilePhoto(photo);
+  if (proposedProfile && confirmedProfileUrl !== proposedProfile.profileUrl) {
+    $("profile-status").textContent = "Perfil ainda não confirmado. Confira o link para continuar.";
+  }
+  proposedProfile = null;
+});
+$("profile-url").oninput = () => {
+  profileRequest++;
+  profileLookup = "";
+  confirmedProfileUrl = "";
+  $("open-profile").hidden = true;
+  $("profile-status").textContent = "Confira o perfil vinculado ao novo link.";
+  if (importedPhoto && photo === importedPhoto) {
+    photo = null;
+    showProfilePhoto(null);
+  }
+  importedPhoto = null;
+};
 $("name").addEventListener("input", () => {
   $("profile-name").textContent = $("name").value.trim() || "Seu perfil";
 });
-$("check-profile").onclick = async () => {
+async function checkProfile(profileUrl) {
+  if (profileLookup === profileUrl || profileDialog.open) return;
+  const request = ++profileRequest;
+  profileLookup = profileUrl;
+  $("profile-status").textContent = "Consultando perfil…";
   try {
-    validateProfile();
-    $("open-profile").href = "https://www.instagram.com/" + $("instagram").value.replace(/^@/, "").toLowerCase() + "/";
-    $("open-profile").hidden = false;
-    const p = await api("profile", {
-      instagram: $("instagram").value,
-      profileUrl: $("profile-url").value,
-    });
-    $("profile-status").textContent =
-      `Perfil: @${p.instagram}. Foto automática indisponível nesta campanha. Confira o perfil informado ou envie uma foto opcional.`;
+    const profile = await api("profile", { profileUrl });
+    if (request !== profileRequest || step !== 2) return;
+    proposedProfile = profile;
+    const link = $("profile-dialog-link");
+    link.href = profile.profileUrl;
+    link.textContent = `@${profile.instagram}`;
+    const image = $("profile-dialog-photo");
+    image.hidden = !profile.photo;
+    image.src = profile.photo || profilePlaceholder;
+    showProfilePhoto(profile.photo || photo);
+    $("profile-dialog-description").textContent = profile.photo
+      ? "Ao confirmar, esta foto será usada no cadastro. Você pode substituí-la antes de enviar."
+      : "Não foi possível obter a foto automaticamente. Você pode confirmar o link e enviar uma foto opcional.";
+    profileDialog.showModal();
   } catch (e) {
-    message(e.message);
+    if (request === profileRequest && step === 2) {
+      $("profile-status").textContent = "Consulta indisponível. Tente conferir o link novamente.";
+      showError(e.message);
+    }
+  } finally {
+    if (request === profileRequest) profileLookup = "";
   }
+}
+$("profile-url").addEventListener("blur", () => {
+  if (step !== 2 || config?.localPreview) return;
+  try {
+    const profileUrl = validateProfile();
+    if (confirmedProfileUrl !== profileUrl) void checkProfile(profileUrl);
+  } catch { /* Invalid links are reported when the participant continues. */ }
+});
+$("check-profile").onclick = () => {
+  try { void checkProfile(validateProfile()); }
+  catch (error) { showError(error.message, $("profile-url")); }
+};
+$("confirm-profile").onclick = () => {
+  if (!proposedProfile) return;
+  confirmedProfileUrl = proposedProfile.profileUrl;
+  $("open-profile").href = confirmedProfileUrl;
+  $("open-profile").hidden = false;
+  if (proposedProfile.photo) {
+    importedPhoto = photo = proposedProfile.photo;
+    $("photo-upload").value = "";
+  }
+  $("profile-status").textContent = photo
+    ? "Perfil confirmado. A foto será salva junto com a solicitação."
+    : "Perfil confirmado. A foto é opcional.";
+  profileDialog.close();
+};
+$("change-profile").onclick = () => {
+  profileDialog.close();
+  $("profile-url").focus();
 };
 $("photo-upload").onchange = async (event) => {
   const file = event.target.files[0];
   photo = null;
-  $("photo-preview").src = "./profile-placeholder.svg";
+  showProfilePhoto(null);
   if (!file) return;
   if (
     file.size > 512000 ||
     !["image/png", "image/jpeg", "image/webp"].includes(file.type)
   ) {
-    message("Envie PNG, JPEG ou WebP de até 500 KB.");
+    showError("Envie PNG, JPEG ou WebP de até 500 KB.");
     event.target.value = "";
     return;
   }
@@ -333,17 +474,17 @@ $("photo-upload").onchange = async (event) => {
       reader.onerror = reject;
       reader.readAsDataURL(file);
     });
-    $("photo-preview").src = photo;
+    showProfilePhoto(photo);
     message("");
   } catch {
-    message("Não foi possível ler a foto. Você pode continuar sem ela.");
+    showError("Não foi possível ler a foto. Você pode continuar sem ela.");
   }
 };
 $("preview-submit").onclick = () => {
   if (!config?.localPreview || completed) return;
   const submitted = data();
   if (!selectedDate || !submitted.period || !submitted.time) {
-    message("Escolha a data, o período e o horário para visualizar o resumo.");
+    showError("Escolha a data, o período e o horário para visualizar o resumo.");
     return;
   }
   completed = true;
@@ -361,13 +502,14 @@ form.onsubmit = async (event) => {
   if (busy || completed || !config?.published) return;
   if (step !== 3) { $("next").click(); return; }
   if (!selectedDate) {
-    message("Escolha uma data disponível.");
+    showError("Escolha uma data disponível.");
     return;
   }
   if (
     !["conditions", "image", "privacy"].every((k) => $(`accept-${k}`).checked)
   ) {
     showStep(1);
+    showError("Leia e aceite os três documentos da campanha para enviar a solicitação.");
     return;
   }
   busy = true;
@@ -379,7 +521,6 @@ form.onsubmit = async (event) => {
       ...submitted,
       date: selectedDate,
       photo,
-      profileConfirmed: $("profile-confirmed").checked,
       revision: config.revision,
       acceptances: { conditions: true, image: true, privacy: true },
       requestKey,
@@ -397,15 +538,15 @@ form.onsubmit = async (event) => {
     } catch {
       /* Keep the current fields and original error. */
     }
-    message(error);
     if (e.status === 412) showStep(1);
+    showError(error);
     if (e.status === 409) requestKey = crypto.randomUUID();
   } finally {
     busy = false;
     dates();
   }
 };
-load().catch((error) => message(error.message));
+load().catch((error) => showError(error.message));
 setInterval(() => {
   if (!busy && !completed && step === 3)
     load()

@@ -429,16 +429,9 @@
   }
 
   #locomotiva-step-2 .personal-profile-status,
-  #locomotiva-step-2 .personal-photo-help,
-  #locomotiva-step-2 .small-note {
+  #locomotiva-step-2 .personal-photo-help {
     font-size: 13px;
     line-height: 1.5;
-  }
-
-  #locomotiva-step-2 .consent-control {
-    margin-block: 8px;
-    padding: 6px;
-    font-size: 13px;
   }
 
   body.registration-page .registration-section[data-step="2"] .form-actions {
@@ -692,15 +685,14 @@
     padding-block: 16px;
   }
 
-  .landing-brand {
+  /* .landing-brand {
     background: #fff5e6;
     border: 2px solid #b9855f;
     border-radius: 14px;
     padding: 8px 24px;
-  }
+  } */
 
   .landing-brand img {
-    filter: brightness(0);
     height: 64px;
   }
 

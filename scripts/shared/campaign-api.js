@@ -18,7 +18,7 @@
       throw new Error("Não foi possível conectar ao serviço da campanha. Tente novamente em instantes.");
     }
     if (!response.headers.get("content-type")?.includes("application/json")) {
-      throw new Error("O serviço da campanha está indisponível neste endereço. Acesse o link oficial da campanha.");
+      throw new Error("Não conseguimos consultar a campanha agora. Abra o endereço oficial locomotiva-six.vercel.app ou tente novamente mais tarde.");
     }
     const data = await response.json();
     if (!response.ok) {

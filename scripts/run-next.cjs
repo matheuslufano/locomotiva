@@ -37,15 +37,16 @@ async function start() {
   await verifyPort();
   let backendRunning = false;
   try {
-    const response = await fetch(new URL("locomotiva/config", backendUrl.href.replace(/\/$/, "") + "/"), { signal: AbortSignal.timeout(3000) });
-    backendRunning = response.headers.get("content-type")?.includes("application/json");
-  } catch { /* Start the local backend when it is not already listening. */ }
+    const base = backendUrl.href.replace(/\/$/, "") + "/";
+    const responses = await Promise.all(["health", "locomotiva/config"].map((route) =>
+      fetch(new URL(route, base), { signal: AbortSignal.timeout(3000) }),
+    ));
+    const [health, campaign] = await Promise.all(responses.map((response) => response.json()));
+    backendRunning = responses.every((response) => response.ok) &&
+      health.database === "ok" && typeof campaign.config?.published === "boolean";
+  } catch { /* The configured backend is required. */ }
   if (!backendRunning) {
-    if (backendUrl.protocol !== "http:" || backendUrl.hostname !== "127.0.0.1" ||
-        backendUrl.pathname !== "/" || Number(backendUrl.port || 80) === webPort) {
-      throw new Error("Inicie o backend configurado em LOCOMOTIVA_BACKEND_URL antes de executar o site.");
-    }
-    launch(path.join(__dirname, "dev-server.cjs"), []);
+    throw new Error("Inicie o afiliados-backend completo (npm run dev) e confirme /health e /locomotiva/config antes de executar o site.");
   }
   launch(require.resolve("next/dist/bin/next"), [
     production ? "start" : "dev", "--hostname", "127.0.0.1", "--port", String(webPort),

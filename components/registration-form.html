@@ -13,6 +13,26 @@
         <p id="locomotiva-status" role="status" aria-live="polite">
           Consultando a campanha…
         </p>
+        <dialog id="locomotiva-error-dialog" class="registration-error-dialog" role="alertdialog" aria-labelledby="locomotiva-error-title" aria-describedby="locomotiva-error-message">
+          <h2 id="locomotiva-error-title">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v6m0 3h.01"/></svg>
+            Não foi possível continuar
+          </h2>
+          <p id="locomotiva-error-message"></p>
+          <button id="locomotiva-close-error" type="button" class="secondary-action" autofocus>Fechar mensagem</button>
+        </dialog>
+        <dialog id="locomotiva-profile-dialog" class="registration-profile-dialog" aria-labelledby="locomotiva-profile-dialog-title" aria-describedby="locomotiva-profile-dialog-description">
+          <h2 id="locomotiva-profile-dialog-title">É este o seu perfil do Instagram?</h2>
+          <div class="registration-profile-confirmation">
+            <img id="locomotiva-profile-dialog-photo" src="./profile-placeholder.svg" alt="Foto do perfil consultado" width="72" height="72" hidden />
+            <a id="locomotiva-profile-dialog-link" target="_blank" rel="noopener noreferrer"></a>
+          </div>
+          <p id="locomotiva-profile-dialog-description"></p>
+          <div class="registration-profile-confirmation">
+            <button id="locomotiva-confirm-profile" type="button" class="primary-action">Usar este perfil</button>
+            <button id="locomotiva-change-profile" type="button" class="secondary-action">Corrigir link</button>
+          </div>
+        </dialog>
         <form id="locomotiva-form" hidden autocomplete="off">
 
           <fieldset id="locomotiva-step-1">
@@ -22,7 +42,7 @@
               <h2 class="desktop-only conditions-invitation-title">Seu convite</h2>
               <div class="conditions-voucher">
                 <svg viewBox="0 0 48 40" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M3 5h42v8a7 7 0 0 0 0 14v8H3v-8a7 7 0 0 0 0-14V5Z"/><path d="M17 11v7m4-7v7m-8-7v6a4 4 0 0 0 8 0m-4 4v10m15-20c-5 1-6 5-6 10h6m0-10v20"/></svg>
-                <div><p><strong>R$ 200</strong> <span>• 21 a 30 de novembro</span></p><p>Voucher para visitas aprovadas na campanha.</p></div>
+                <div><p><strong>R$ 200</strong></p><p>Voucher para visitas aprovadas na campanha.</p></div>
               </div>
             </div>
             <div class="conditions-desktop-copy">
@@ -75,10 +95,11 @@
                   required
                   inputmode="numeric"
                   maxlength="14"
-                  aria-describedby="locomotiva-cpf-help"
+                  placeholder="000.000.000-00"
+                  aria-describedby="locomotiva-cpf-help locomotiva-cpf-feedback"
                 /><small id="locomotiva-cpf-help"
                   >Protegido e disponível apenas à equipe autorizada.</small
-                ></label
+                ><small id="locomotiva-cpf-feedback" aria-live="polite" hidden></small></label
               >
               <label id="locomotiva-email-label" for="locomotiva-email"><span class="personal-label-text">E-mail <span class="personal-required" aria-hidden="true">*</span></span><input id="locomotiva-email"
                   name="email"
@@ -108,13 +129,6 @@
                   <option value="">UF</option>
                 </select></label
               >
-              <label id="locomotiva-instagram-label" for="locomotiva-instagram"><span class="personal-label-text">Usuário do Instagram <span class="personal-required" aria-hidden="true">*</span></span><input id="locomotiva-instagram"
-                  name="instagram"
-                  placeholder="@seuperfil"
-                  required
-                  maxlength="31"
-                  autocapitalize="none"
-              /></label>
               <label id="locomotiva-profile-url-label" for="locomotiva-profile-url"><span class="personal-label-text">Link do perfil do Instagram <span class="personal-required" aria-hidden="true">*</span></span><input id="locomotiva-profile-url"
                   name="profileUrl"
                   type="url"
@@ -132,24 +146,13 @@
                 <a id="locomotiva-open-profile" class="personal-profile-link" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" hidden>Abrir perfil informado ↗</a>
               </div>
             </div>
-            <p id="locomotiva-profile-status" class="personal-profile-status" role="status">Confira o perfil informado. Você também pode enviar uma foto opcional.</p>
+            <p id="locomotiva-profile-status" class="personal-profile-status" role="status">O link pode ser de um perfil com nome diferente do seu. A foto é opcional.</p>
             <label id="locomotiva-photo-upload-label" class="personal-photo-upload" for="locomotiva-photo-upload">
               <svg class="personal-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8" cy="9" r="1.5"/><path d="m3 16 5-4 4 4 4-6 5 6"/></svg>
               <span>Foto indisponível? Envie uma imagem.</span>
               <input id="locomotiva-photo-upload" type="file" accept="image/jpeg,image/png,image/webp" aria-describedby="locomotiva-photo-help" />
             </label>
             <small id="locomotiva-photo-help" class="personal-photo-help">Foto opcional • JPEG, PNG ou WebP • Até 500 KB</small>
-<label class="consent-control"
-              ><input
-                id="locomotiva-profile-confirmed"
-                type="checkbox"
-                required
-              />Conferi e confirmo que o perfil informado está correto.</label
-            >
-            <p class="small-note">
-              Essa confirmação não representa verificação de titularidade pela
-              Locomotiva.
-            </p>
               <img class="desktop-only personal-sidebar-dish" src="./assets/pratos/chapa-alecrim-vertical.webp" width="572" height="1200" alt="Carne servida na Locomotiva" loading="lazy" />
             </aside>
           </fieldset>
@@ -212,7 +215,8 @@
           <strong>A visita depende de aprovação por e-mail.</strong>
         </p>
           <p id="locomotiva-registration-closed" class="approval-notice" hidden>
-            Você pode conhecer a proposta da campanha nesta página. Os termos completos, os aceites e o cadastro serão habilitados após a configuração final do restaurante.
+            <strong>As inscrições ainda não estão abertas.</strong>
+            Quando o restaurante liberar o cadastro, os termos e o botão para continuar estarão disponíveis nesta página. Acompanhe pelo <a href="https://locomotiva-six.vercel.app/campanha-locomotiva/condicoes.html">link oficial da campanha</a>.
           </p>
           <div class="form-actions">
             <button

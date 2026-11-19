@@ -10,8 +10,18 @@
       content="Solicite sua participação na campanha de inauguração do Restaurante Locomotiva."
     />
     <meta name="theme-color" content="#171614" />
-    <link rel="icon" type="image/png" href="./assets/locomotiva-icon-black.png" media="(prefers-color-scheme: light)" />
-    <link rel="icon" type="image/png" href="./assets/locomotiva-icon-white.png" media="(prefers-color-scheme: dark)" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="./assets/locomotiva-icon-black.png"
+      media="(prefers-color-scheme: light)"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="./assets/locomotiva-icon-white.png"
+      media="(prefers-color-scheme: dark)"
+    />
     <link rel="stylesheet" href="./styles/campaign.css" />
     <link rel="stylesheet" href="./styles/dish-carousel.css" />
     <link rel="stylesheet" href="./styles/landing.css" />
@@ -23,249 +33,752 @@
   </head>
   <body class="landing-page">
     <svg class="landing-icon-library" width="0" height="0" aria-hidden="true">
-      <symbol id="locomotiva-icon-arrow" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
-      <symbol id="locomotiva-icon-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
-      <symbol id="locomotiva-icon-voucher" viewBox="0 0 24 24"><path d="M3 8V5h18v3a4 4 0 0 0 0 8v3H3v-3a4 4 0 0 0 0-8Z"/><path d="M15 5v2m0 4v2m0 4v2"/></symbol>
-      <symbol id="locomotiva-icon-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4m10-4v4M3 10h18m-13 5h1m6 0h1"/></symbol>
-      <symbol id="locomotiva-icon-video" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="m10 9 5 3-5 3z"/></symbol>
-      <symbol id="locomotiva-icon-email" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></symbol>
-      <symbol id="locomotiva-icon-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4m0 4h.01"/></symbol>
+      <symbol id="locomotiva-icon-arrow" viewBox="0 0 24 24">
+        <path d="m9 18 6-6-6-6" />
+      </symbol>
+      <symbol id="locomotiva-icon-menu" viewBox="0 0 24 24">
+        <path d="M4 6h16M4 12h16M4 18h16" />
+      </symbol>
+      <symbol id="locomotiva-icon-voucher" viewBox="0 0 24 24">
+        <path d="M3 8V5h18v3a4 4 0 0 0 0 8v3H3v-3a4 4 0 0 0 0-8Z" />
+        <path d="M15 5v2m0 4v2m0 4v2" />
+      </symbol>
+      <symbol id="locomotiva-icon-calendar" viewBox="0 0 24 24">
+        <rect x="3" y="5" width="18" height="16" rx="2" />
+        <path d="M7 3v4m10-4v4M3 10h18m-13 5h1m6 0h1" />
+      </symbol>
+      <symbol id="locomotiva-icon-video" viewBox="0 0 24 24">
+        <rect x="3" y="4" width="18" height="16" rx="3" />
+        <path d="m10 9 5 3-5 3z" />
+      </symbol>
+      <symbol id="locomotiva-icon-email" viewBox="0 0 24 24">
+        <rect x="3" y="5" width="18" height="14" rx="2" />
+        <path d="m4 7 8 6 8-6" />
+      </symbol>
+      <symbol id="locomotiva-icon-info" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 8v4m0 4h.01" />
+      </symbol>
     </svg>
     <header id="locomotiva-header" class="landing-header landing-metal">
       <div class="landing-shell landing-header-inner">
-        <a id="locomotiva-brand-link" class="landing-brand" href="#locomotiva-introduction" aria-label="Restaurante Locomotiva, início">
-          <img src="./assets/locomotiva-logo-white.png" width="1132" height="706" alt="Locomotiva Restaurante" />
+        <a
+          id="locomotiva-brand-link"
+          class="landing-brand"
+          href="#locomotiva-introduction"
+          aria-label="Restaurante Locomotiva, início"
+        >
+          <img
+            src="./assets/locomotiva-logo-white.png"
+            width="1132"
+            height="706"
+            alt="Locomotiva Restaurante"
+          />
         </a>
-        <button id="locomotiva-menu-toggle" class="landing-menu-toggle" type="button" aria-expanded="false" aria-controls="locomotiva-navigation" hidden>
-          <svg class="landing-icon" aria-hidden="true"><use href="#locomotiva-icon-menu"/></svg> Menu
+        <button
+          id="locomotiva-menu-toggle"
+          class="landing-menu-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="locomotiva-navigation"
+          hidden
+        >
+          <svg class="landing-icon" aria-hidden="true">
+            <use href="#locomotiva-icon-menu" />
+          </svg>
+          Menu
         </button>
-        <nav id="locomotiva-navigation" class="landing-navigation" aria-label="Navegação principal">
+        <nav
+          id="locomotiva-navigation"
+          class="landing-navigation"
+          aria-label="Navegação principal"
+        >
           <a href="#locomotiva-introduction">O restaurante</a>
           <a href="#locomotiva-invitation">O convite</a>
           <a href="#locomotiva-participation-guide">Como participar</a>
-          <a id="locomotiva-header-participate" class="primary-action landing-action" href="./condicoes.html">Participar <svg class="landing-icon" aria-hidden="true"><use href="#locomotiva-icon-arrow"/></svg></a>
+          <a
+            id="locomotiva-header-participate"
+            class="primary-action landing-action"
+            href="./condicoes.html"
+            >Participar
+            <svg class="landing-icon" aria-hidden="true">
+              <use href="#locomotiva-icon-arrow" /></svg
+          ></a>
         </nav>
       </div>
     </header>
     <main id="locomotiva-main">
-      <section id="locomotiva-introduction" class="landing-dark" aria-labelledby="locomotiva-hero-title">
+      <section
+        id="locomotiva-introduction"
+        class="landing-dark"
+        aria-labelledby="locomotiva-hero-title"
+      >
         <div class="landing-shell landing-section landing-hero">
           <div class="landing-hero-copy">
-            <p class="landing-badge"><span class="mobile-only">BEM-VINDO À LOCOMOTIVA</span><span class="desktop-only">CONVITE PARA INFLUENCIADORES</span></p>
-            <h1 id="locomotiva-hero-title"><span class="mobile-only">Sabor que merece uma parada.</span><span class="desktop-only">Uma experiência para compartilhar</span></h1>
-            <p class="landing-description"><span class="mobile-only">Pratos para compartilhar, bons encontros e uma experiência para saborear com calma.</span><span class="desktop-only">Você é nosso convidado para a inauguração da Locomotiva.</span></p>
-            <a id="locomotiva-start-button" class="primary-action landing-action" href="#locomotiva-invitation">Conheça o convite <svg class="landing-icon" aria-hidden="true"><use href="#locomotiva-icon-arrow"/></svg></a>
+            <p class="landing-badge">
+              <span class="mobile-only">BEM-VINDO À LOCOMOTIVA</span
+              ><span class="desktop-only">CONVITE PARA INFLUENCIADORES</span>
+            </p>
+            <h1 id="locomotiva-hero-title">
+              <span class="mobile-only">Sabor que merece uma parada.</span
+              ><span class="desktop-only"
+                >Uma experiência para compartilhar</span
+              >
+            </h1>
+            <p class="landing-description">
+              <span class="mobile-only"
+                >Pratos para compartilhar, bons encontros e uma experiência para
+                saborear com calma.</span
+              ><span class="desktop-only"
+                >Você é nosso convidado para a inauguração da Locomotiva.</span
+              >
+            </p>
+            <a
+              id="locomotiva-start-button"
+              class="primary-action landing-action"
+              href="#locomotiva-invitation"
+              >Conheça o convite
+              <svg class="landing-icon" aria-hidden="true">
+                <use href="#locomotiva-icon-arrow" /></svg
+            ></a>
           </div>
           <picture class="landing-hero-photo">
-            <img src="./assets/pratos/chapa-alecrim-vertical.webp" width="572" height="1200" alt="Carne servida na chapa com alecrim e tomates" fetchpriority="high" decoding="async" />
+            <img
+              src="./assets/pratos/chapa-alecrim-vertical.webp"
+              width="572"
+              height="1200"
+              alt="Carne servida na chapa com alecrim e tomates"
+              fetchpriority="high"
+              decoding="async"
+            />
           </picture>
           <div class="desktop-only desktop-invitation-overview">
             <div class="desktop-invitation-benefits">
-              <article><svg class="landing-icon" aria-hidden="true"><use href="#locomotiva-icon-voucher"/></svg><div><h2>R$ 200 em consumo</h2><p>Voucher para participantes aprovados.</p></div></article>
-              <article><svg class="landing-icon" aria-hidden="true"><use href="#locomotiva-icon-calendar"/></svg><div><h2>21 a 30 de novembro</h2><p>Período da campanha de inauguração.</p></div></article>
-              <article><svg class="landing-icon" aria-hidden="true"><use href="#locomotiva-icon-video"/></svg><div><h2>4 Stories OU 1 Reels</h2><p>Além de 2 Stories de aquecimento.</p></div></article>
+              <article>
+                <svg class="landing-icon" aria-hidden="true">
+                  <use href="#locomotiva-icon-voucher" />
+                </svg>
+                <div>
+                  <h2>R$ 200 em consumo</h2>
+                  <p>Voucher para participantes aprovados.</p>
+                </div>
+              </article>
+              <article>
+                <svg class="landing-icon" aria-hidden="true">
+                  <use href="#locomotiva-icon-calendar" />
+                </svg>
+                <div>
+                  <h2>Consulte as datas no cadastro</h2>
+                  <p>Período da campanha de inauguração.</p>
+                </div>
+              </article>
+              <article>
+                <svg class="landing-icon" aria-hidden="true">
+                  <use href="#locomotiva-icon-video" />
+                </svg>
+                <div>
+                  <h2>4 Stories OU 1 Reels</h2>
+                  <p>Além de 2 Stories de aquecimento.</p>
+                </div>
+              </article>
             </div>
             <p>Participação sujeita à aprovação por e-mail.</p>
-            <a id="locomotiva-desktop-participate" class="primary-action landing-action" href="./condicoes.html">Conhecer condições e participar <svg class="landing-icon" aria-hidden="true"><use href="#locomotiva-icon-arrow"/></svg></a>
-            <ol class="desktop-invitation-steps"><li><strong>Condições</strong><span>Confira as regras da campanha.</span></li><li><strong>Seus dados</strong><span>Preencha suas informações.</span></li><li><strong>Sua visita</strong><span>Solicite a data e aguarde aprovação.</span></li></ol>
+            <a
+              id="locomotiva-desktop-participate"
+              class="primary-action landing-action"
+              href="./condicoes.html"
+              >Conhecer condições e participar
+              <svg class="landing-icon" aria-hidden="true">
+                <use href="#locomotiva-icon-arrow" /></svg
+            ></a>
+            <ol class="desktop-invitation-steps">
+              <li>
+                <strong>Condições</strong
+                ><span>Confira as regras da campanha.</span>
+              </li>
+              <li>
+                <strong>Seus dados</strong
+                ><span>Preencha suas informações.</span>
+              </li>
+              <li>
+                <strong>Sua visita</strong
+                ><span>Solicite a data e aguarde aprovação.</span>
+              </li>
+            </ol>
           </div>
         </div>
       </section>
-      <section id="locomotiva-experience" class="landing-shell landing-section" aria-labelledby="locomotiva-experience-title">
+      <section
+        id="locomotiva-experience"
+        class="landing-shell landing-section"
+        aria-labelledby="locomotiva-experience-title"
+      >
         <div class="landing-heading">
           <h2 id="locomotiva-experience-title">Uma experiência à mesa</h2>
-          <p>Conheça os sabores da Locomotiva e aproveite cada momento da sua visita.</p>
+          <p>
+            Conheça os sabores da Locomotiva e aproveite cada momento da sua
+            visita.
+          </p>
         </div>
         <div class="experience-gallery">
-            <figure id="locomotiva-experience-flavors" class="experience-photo">
-              <img src="./assets/pratos/chapa-alecrim-vertical.webp" width="572" height="1200" alt="Carne servida na chapa com alecrim e tomates" loading="lazy" decoding="async" />
-              <figcaption>Sabores</figcaption>
-            </figure>
-            <figure id="locomotiva-experience-gatherings" class="experience-photo">
-              <img src="./assets/pratos/carne-molho-horizontal.webp" width="1440" height="687" alt="Prato com carne fatiada e acompanhamento cremoso" loading="lazy" decoding="async" />
-              <figcaption>Encontros</figcaption>
-            </figure>
-            <figure id="locomotiva-experience-moments" class="experience-photo">
-              <img src="./assets/pratos/taca-morango-horizontal.webp" width="1440" height="687" alt="Taça de sobremesa decorada com morangos" loading="lazy" decoding="async" />
-              <figcaption>Bons momentos</figcaption>
-            </figure>
+          <figure id="locomotiva-experience-flavors" class="experience-photo">
+            <img
+              src="./assets/pratos/chapa-alecrim-vertical.webp"
+              width="572"
+              height="1200"
+              alt="Carne servida na chapa com alecrim e tomates"
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption>Sabores</figcaption>
+          </figure>
+          <figure
+            id="locomotiva-experience-gatherings"
+            class="experience-photo"
+          >
+            <img
+              src="./assets/pratos/carne-molho-horizontal.webp"
+              width="1440"
+              height="687"
+              alt="Prato com carne fatiada e acompanhamento cremoso"
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption>Encontros</figcaption>
+          </figure>
+          <figure id="locomotiva-experience-moments" class="experience-photo">
+            <img
+              src="./assets/pratos/taca-morango-horizontal.webp"
+              width="1440"
+              height="687"
+              alt="Taça de sobremesa decorada com morangos"
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption>Bons momentos</figcaption>
+          </figure>
         </div>
         <details id="locomotiva-more-photos" class="experience-more">
           <summary>Ver mais fotos dos pratos</summary>
-        <section id="locomotiva-dishes" class="dish-carousel" aria-labelledby="locomotiva-dishes-title">
-          <div class="dish-carousel-heading">
-            <h2 id="locomotiva-dishes-title">À mesa na Locomotiva</h2>
-            <div id="locomotiva-dish-controls" class="dish-carousel-controls" role="group" aria-label="Controles das fotos" hidden>
-              <button id="locomotiva-dish-toggle" type="button" aria-controls="locomotiva-dish-track" aria-label="Pausar apresentação"><svg data-icon="pause" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5v14m6-14v14"/></svg><svg data-icon="play" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 11 7-11 7z"/></svg></button>
-              <button id="locomotiva-dish-previous" type="button" aria-controls="locomotiva-dish-track" aria-label="Foto anterior"><svg data-icon="previous" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
-              <button id="locomotiva-dish-next" type="button" aria-controls="locomotiva-dish-track" aria-label="Próxima foto"><svg data-icon="next" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+          <section
+            id="locomotiva-dishes"
+            class="dish-carousel"
+            aria-labelledby="locomotiva-dishes-title"
+          >
+            <div class="dish-carousel-heading">
+              <h2 id="locomotiva-dishes-title">À mesa na Locomotiva</h2>
+              <div
+                id="locomotiva-dish-controls"
+                class="dish-carousel-controls"
+                role="group"
+                aria-label="Controles das fotos"
+                hidden
+              >
+                <button
+                  id="locomotiva-dish-toggle"
+                  type="button"
+                  aria-controls="locomotiva-dish-track"
+                  aria-label="Pausar apresentação"
+                >
+                  <svg
+                    data-icon="pause"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M9 5v14m6-14v14" /></svg
+                  ><svg
+                    data-icon="play"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="m9 5 11 7-11 7z" />
+                  </svg>
+                </button>
+                <button
+                  id="locomotiva-dish-previous"
+                  type="button"
+                  aria-controls="locomotiva-dish-track"
+                  aria-label="Foto anterior"
+                >
+                  <svg
+                    data-icon="previous"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="m15 18-6-6 6-6" />
+                  </svg>
+                </button>
+                <button
+                  id="locomotiva-dish-next"
+                  type="button"
+                  aria-controls="locomotiva-dish-track"
+                  aria-label="Próxima foto"
+                >
+                  <svg
+                    data-icon="next"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="m9 18 6-6-6-6" />
+                  </svg>
+                </button>
+              </div>
             </div>
-          </div>
-          <div id="locomotiva-dish-track" class="dish-carousel-track" role="group" aria-label="Fotos dos pratos, deslize para navegar" tabindex="0">
-          <figure id="locomotiva-dish-carne-arroz" class="dish-slide">
-            <picture class="dish-slide-photo">
-                <source media="(max-width: 659px)" srcset="./assets/pratos/carne-arroz-vertical.webp" />
-              <img src="./assets/pratos/carne-arroz-horizontal.webp" width="1440" height="687" alt="" loading="lazy" decoding="async" />
-            </picture>
-            <figcaption>Carne fatiada com arroz cremoso</figcaption>
-          </figure>
-          <figure id="locomotiva-dish-batatas-carne" class="dish-slide">
-            <picture class="dish-slide-photo">
-                <source media="(max-width: 659px)" srcset="./assets/pratos/batatas-carne-vertical.webp" />
-              <img src="./assets/pratos/batatas-carne-horizontal.webp" width="1440" height="687" alt="" loading="lazy" decoding="async" />
-            </picture>
-            <figcaption>Batatas fritas com carne desfiada</figcaption>
-          </figure>
-          <figure id="locomotiva-dish-bolinhos-tabua" class="dish-slide">
-            <picture class="dish-slide-photo">
-                <source media="(max-width: 659px)" srcset="./assets/pratos/bolinhos-tabua-vertical.webp" />
-              <img src="./assets/pratos/bolinhos-tabua-horizontal.webp" width="1440" height="687" alt="" loading="lazy" decoding="async" />
-            </picture>
-            <figcaption>Bolinhos crocantes servidos na tábua</figcaption>
-          </figure>
-          <figure id="locomotiva-dish-taca-morango" class="dish-slide">
-            <picture class="dish-slide-photo">
-                <source media="(max-width: 659px)" srcset="./assets/pratos/taca-morango-vertical.webp" />
-              <img src="./assets/pratos/taca-morango-horizontal.webp" width="1440" height="687" alt="" loading="lazy" decoding="async" />
-            </picture>
-            <figcaption>Sobremesa de morango servida na taça</figcaption>
-          </figure>
-          <figure id="locomotiva-dish-gratinado-arroz" class="dish-slide">
-            <picture class="dish-slide-photo">
-              <img src="./assets/pratos/gratinado-arroz-horizontal.webp" width="1440" height="687" alt="" loading="lazy" decoding="async" />
-            </picture>
-            <figcaption>Gratinado com molho de tomate e arroz</figcaption>
-          </figure>
-          <figure id="locomotiva-dish-mesa-carnes" class="dish-slide">
-            <picture class="dish-slide-photo">
-              <img src="./assets/pratos/mesa-carnes-vertical.webp" width="572" height="1200" alt="" loading="lazy" decoding="async" />
-            </picture>
-            <figcaption>Carnes na chapa e acompanhamentos à mesa</figcaption>
-          </figure>
-          <figure id="locomotiva-dish-petiscos-molho" class="dish-slide">
-            <picture class="dish-slide-photo">
-                <source media="(max-width: 659px)" srcset="./assets/pratos/petiscos-molho-vertical.webp" />
-              <img src="./assets/pratos/petiscos-molho-horizontal.webp" width="1440" height="687" alt="" loading="lazy" decoding="async" />
-            </picture>
-            <figcaption>Porção de petiscos crocantes com molho</figcaption>
-          </figure>
-          <figure id="locomotiva-dish-gratinado-massa" class="dish-slide">
-            <picture class="dish-slide-photo">
-              <img src="./assets/pratos/gratinado-massa-horizontal.webp" width="1440" height="687" alt="" loading="lazy" decoding="async" />
-            </picture>
-            <figcaption>Massa com molho de tomate e gratinado</figcaption>
-          </figure>
-          <figure id="locomotiva-dish-caldo-copo" class="dish-slide">
-            <picture class="dish-slide-photo">
-                <source media="(max-width: 659px)" srcset="./assets/pratos/caldo-copo-vertical.webp" />
-              <img src="./assets/pratos/caldo-copo-horizontal.webp" width="1440" height="687" alt="" loading="lazy" decoding="async" />
-            </picture>
-            <figcaption>Caldo servido no copo com guarnições</figcaption>
-          </figure>
-          <figure id="locomotiva-dish-carne-batatas" class="dish-slide">
-            <picture class="dish-slide-photo">
-                <source media="(max-width: 659px)" srcset="./assets/pratos/carne-batatas-vertical.webp" />
-              <img src="./assets/pratos/carne-batatas-horizontal.webp" width="1440" height="687" alt="" loading="lazy" decoding="async" />
-            </picture>
-            <figcaption>Carne fatiada com batatas e acompanhamentos</figcaption>
-          </figure>
-          <figure id="locomotiva-dish-prato-cremoso" class="dish-slide">
-            <picture class="dish-slide-photo">
-                <source media="(max-width: 659px)" srcset="./assets/pratos/prato-cremoso-vertical.webp" />
-              <img src="./assets/pratos/prato-cremoso-horizontal.webp" width="1440" height="687" alt="" loading="lazy" decoding="async" />
-            </picture>
-            <figcaption>Prato cremoso com cobertura crocante</figcaption>
-          </figure>
-          <figure id="locomotiva-dish-chapa-alecrim" class="dish-slide">
-            <picture class="dish-slide-photo">
-              <img src="./assets/pratos/chapa-alecrim-vertical.webp" width="572" height="1200" alt="" loading="lazy" decoding="async" />
-            </picture>
-            <figcaption>Carne na chapa com alecrim</figcaption>
-          </figure>
-          <figure id="locomotiva-dish-carne-molho" class="dish-slide">
-            <picture class="dish-slide-photo">
-                <source media="(max-width: 659px)" srcset="./assets/pratos/carne-molho-vertical.webp" />
-              <img src="./assets/pratos/carne-molho-horizontal.webp" width="1440" height="687" alt="" loading="lazy" decoding="async" />
-            </picture>
-            <figcaption>Carne fatiada com acompanhamento cremoso</figcaption>
-          </figure>
-          </div>
-        </section>
+            <div
+              id="locomotiva-dish-track"
+              class="dish-carousel-track"
+              role="group"
+              aria-label="Fotos dos pratos, deslize para navegar"
+              tabindex="0"
+            >
+              <figure id="locomotiva-dish-carne-arroz" class="dish-slide">
+                <picture class="dish-slide-photo">
+                  <source
+                    media="(max-width: 659px)"
+                    srcset="./assets/pratos/carne-arroz-vertical.webp"
+                  />
+                  <img
+                    src="./assets/pratos/carne-arroz-horizontal.webp"
+                    width="1440"
+                    height="687"
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
+                <figcaption>Carne fatiada com arroz cremoso</figcaption>
+              </figure>
+              <figure id="locomotiva-dish-batatas-carne" class="dish-slide">
+                <picture class="dish-slide-photo">
+                  <source
+                    media="(max-width: 659px)"
+                    srcset="./assets/pratos/batatas-carne-vertical.webp"
+                  />
+                  <img
+                    src="./assets/pratos/batatas-carne-horizontal.webp"
+                    width="1440"
+                    height="687"
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
+                <figcaption>Batatas fritas com carne desfiada</figcaption>
+              </figure>
+              <figure id="locomotiva-dish-bolinhos-tabua" class="dish-slide">
+                <picture class="dish-slide-photo">
+                  <source
+                    media="(max-width: 659px)"
+                    srcset="./assets/pratos/bolinhos-tabua-vertical.webp"
+                  />
+                  <img
+                    src="./assets/pratos/bolinhos-tabua-horizontal.webp"
+                    width="1440"
+                    height="687"
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
+                <figcaption>Bolinhos crocantes servidos na tábua</figcaption>
+              </figure>
+              <figure id="locomotiva-dish-taca-morango" class="dish-slide">
+                <picture class="dish-slide-photo">
+                  <source
+                    media="(max-width: 659px)"
+                    srcset="./assets/pratos/taca-morango-vertical.webp"
+                  />
+                  <img
+                    src="./assets/pratos/taca-morango-horizontal.webp"
+                    width="1440"
+                    height="687"
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
+                <figcaption>Sobremesa de morango servida na taça</figcaption>
+              </figure>
+              <figure id="locomotiva-dish-gratinado-arroz" class="dish-slide">
+                <picture class="dish-slide-photo">
+                  <img
+                    src="./assets/pratos/gratinado-arroz-horizontal.webp"
+                    width="1440"
+                    height="687"
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
+                <figcaption>Gratinado com molho de tomate e arroz</figcaption>
+              </figure>
+              <figure id="locomotiva-dish-mesa-carnes" class="dish-slide">
+                <picture class="dish-slide-photo">
+                  <img
+                    src="./assets/pratos/mesa-carnes-vertical.webp"
+                    width="572"
+                    height="1200"
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
+                <figcaption>
+                  Carnes na chapa e acompanhamentos à mesa
+                </figcaption>
+              </figure>
+              <figure id="locomotiva-dish-petiscos-molho" class="dish-slide">
+                <picture class="dish-slide-photo">
+                  <source
+                    media="(max-width: 659px)"
+                    srcset="./assets/pratos/petiscos-molho-vertical.webp"
+                  />
+                  <img
+                    src="./assets/pratos/petiscos-molho-horizontal.webp"
+                    width="1440"
+                    height="687"
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
+                <figcaption>Porção de petiscos crocantes com molho</figcaption>
+              </figure>
+              <figure id="locomotiva-dish-gratinado-massa" class="dish-slide">
+                <picture class="dish-slide-photo">
+                  <img
+                    src="./assets/pratos/gratinado-massa-horizontal.webp"
+                    width="1440"
+                    height="687"
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
+                <figcaption>Massa com molho de tomate e gratinado</figcaption>
+              </figure>
+              <figure id="locomotiva-dish-caldo-copo" class="dish-slide">
+                <picture class="dish-slide-photo">
+                  <source
+                    media="(max-width: 659px)"
+                    srcset="./assets/pratos/caldo-copo-vertical.webp"
+                  />
+                  <img
+                    src="./assets/pratos/caldo-copo-horizontal.webp"
+                    width="1440"
+                    height="687"
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
+                <figcaption>Caldo servido no copo com guarnições</figcaption>
+              </figure>
+              <figure id="locomotiva-dish-carne-batatas" class="dish-slide">
+                <picture class="dish-slide-photo">
+                  <source
+                    media="(max-width: 659px)"
+                    srcset="./assets/pratos/carne-batatas-vertical.webp"
+                  />
+                  <img
+                    src="./assets/pratos/carne-batatas-horizontal.webp"
+                    width="1440"
+                    height="687"
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
+                <figcaption>
+                  Carne fatiada com batatas e acompanhamentos
+                </figcaption>
+              </figure>
+              <figure id="locomotiva-dish-prato-cremoso" class="dish-slide">
+                <picture class="dish-slide-photo">
+                  <source
+                    media="(max-width: 659px)"
+                    srcset="./assets/pratos/prato-cremoso-vertical.webp"
+                  />
+                  <img
+                    src="./assets/pratos/prato-cremoso-horizontal.webp"
+                    width="1440"
+                    height="687"
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
+                <figcaption>Prato cremoso com cobertura crocante</figcaption>
+              </figure>
+              <figure id="locomotiva-dish-chapa-alecrim" class="dish-slide">
+                <picture class="dish-slide-photo">
+                  <img
+                    src="./assets/pratos/chapa-alecrim-vertical.webp"
+                    width="572"
+                    height="1200"
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
+                <figcaption>Carne na chapa com alecrim</figcaption>
+              </figure>
+              <figure id="locomotiva-dish-carne-molho" class="dish-slide">
+                <picture class="dish-slide-photo">
+                  <source
+                    media="(max-width: 659px)"
+                    srcset="./assets/pratos/carne-molho-vertical.webp"
+                  />
+                  <img
+                    src="./assets/pratos/carne-molho-horizontal.webp"
+                    width="1440"
+                    height="687"
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
+                <figcaption>
+                  Carne fatiada com acompanhamento cremoso
+                </figcaption>
+              </figure>
+            </div>
+          </section>
         </details>
       </section>
-      <section id="locomotiva-invitation" class="landing-dark" aria-labelledby="locomotiva-invitation-title">
+      <section
+        id="locomotiva-invitation"
+        class="landing-dark"
+        aria-labelledby="locomotiva-invitation-title"
+      >
         <div class="landing-shell landing-section">
           <div class="landing-heading">
             <p class="landing-badge">INAUGURAÇÃO • INFLUENCIADORES</p>
-            <h2 id="locomotiva-invitation-title">Um convite para quem inspira</h2>
-            <p>Queremos você na nossa inauguração para viver e compartilhar a experiência Locomotiva.</p>
+            <h2 id="locomotiva-invitation-title">
+              Um convite para quem inspira
+            </h2>
+            <p>
+              Queremos você na nossa inauguração para viver e compartilhar a
+              experiência Locomotiva.
+            </p>
           </div>
           <div class="invite-grid">
             <article id="locomotiva-invite-voucher" class="invite-card">
-              <div class="invite-card-icon"><svg class="landing-icon" aria-hidden="true"><use href="#locomotiva-icon-voucher"/></svg></div>
+              <div class="invite-card-icon">
+                <svg class="landing-icon" aria-hidden="true">
+                  <use href="#locomotiva-icon-voucher" />
+                </svg>
+              </div>
               <div class="invite-card-copy">
                 <h3>R$ 200 para sua experiência</h3>
-                <div class="invite-voucher-copy"><p>Os participantes aprovados recebem um voucher de R$ 200 para consumir durante a visita agendada, conforme as condições da campanha.</p><span class="invite-voucher" aria-hidden="true">R$ 200 <small>VOUCHER</small></span></div>
+                <div class="invite-voucher-copy">
+                  <p>
+                    Os participantes aprovados recebem um voucher de R$ 200 para
+                    consumir durante a visita agendada, conforme as condições da
+                    campanha.
+                  </p>
+                  <span class="invite-voucher" aria-hidden="true"
+                    >R$ 200 <small>VOUCHER</small></span
+                  >
+                </div>
               </div>
             </article>
             <article id="locomotiva-invite-calendar" class="invite-card">
-              <div class="invite-card-icon"><svg class="landing-icon" aria-hidden="true"><use href="#locomotiva-icon-calendar"/></svg></div>
+              <div class="invite-card-icon">
+                <svg class="landing-icon" aria-hidden="true">
+                  <use href="#locomotiva-icon-calendar" />
+                </svg>
+              </div>
               <div class="invite-card-copy">
                 <h3>Escolha quando participar</h3>
-                <p class="invite-date"><strong>21 a 30 de novembro de 2026</strong><span> • 10 datas</span></p><p>Solicite uma data disponível e escolha o período da sua visita. Cada dia será destinado a um único influenciador.</p><ul class="invite-periods"><li>Almoço • 11h às 15h</li><li>Jantar • 18h às 23h</li></ul><p class="invite-arrival-note">Os horários de chegada disponíveis aparecem no formulário, conforme a configuração do restaurante.</p>
+                <p class="invite-date">
+                  <strong>Datas disponíveis no formulário</strong>
+                </p>
+                <p>
+                  Solicite uma data disponível e escolha o período da sua
+                  visita. Cada dia será destinado a um único influenciador.
+                </p>
+                <ul class="invite-periods">
+                  <li>Almoço • 11h às 15h</li>
+                  <li>Jantar • 18h às 23h</li>
+                </ul>
+                <p class="invite-arrival-note">
+                  Os horários de chegada disponíveis aparecem no formulário,
+                  conforme a configuração do restaurante.
+                </p>
               </div>
             </article>
             <article id="locomotiva-invite-video" class="invite-card">
-              <div class="invite-card-icon"><svg class="landing-icon" aria-hidden="true"><use href="#locomotiva-icon-video"/></svg></div>
+              <div class="invite-card-icon">
+                <svg class="landing-icon" aria-hidden="true">
+                  <use href="#locomotiva-icon-video" />
+                </svg>
+              </div>
               <div class="invite-card-copy">
                 <h3>O que você vai publicar</h3>
-                <p><strong>Antes da visita: 2 Stories de aquecimento.</strong></p><p>No dia da visita, escolha uma modalidade:</p>
-                <p class="invite-content-options"><strong>4 Stories</strong><span>OU</span><strong>1 Reels de 60 segundos</strong></p><p>Escolha uma modalidade e compartilhe sua experiência, mostrando os pratos, o ambiente e suas impressões sobre a Locomotiva.</p>
+                <p>
+                  <strong>Antes da visita: 2 Stories de aquecimento.</strong>
+                </p>
+                <p>No dia da visita, escolha uma modalidade:</p>
+                <p class="invite-content-options">
+                  <strong>4 Stories</strong><span>OU</span
+                  ><strong>1 Reels de 60 segundos</strong>
+                </p>
+                <p>
+                  Escolha uma modalidade e compartilhe sua experiência,
+                  mostrando os pratos, o ambiente e suas impressões sobre a
+                  Locomotiva.
+                </p>
               </div>
             </article>
             <article id="locomotiva-invite-email" class="invite-card">
-              <div class="invite-card-icon"><svg class="landing-icon" aria-hidden="true"><use href="#locomotiva-icon-email"/></svg></div>
+              <div class="invite-card-icon">
+                <svg class="landing-icon" aria-hidden="true">
+                  <use href="#locomotiva-icon-email" />
+                </svg>
+              </div>
               <div class="invite-card-copy">
                 <h3>Aguarde a aprovação por e-mail</h3>
-                <p>Após o cadastro, nossa equipe avaliará sua solicitação. A data e o horário só estarão confirmados após aprovação expressa por e-mail. Confira também a caixa de spam.</p><p class="invite-approval"><svg class="landing-icon" aria-hidden="true"><use href="#locomotiva-icon-info"/></svg> <strong>Enviar o cadastro não confirma sua visita.</strong></p>
+                <p>
+                  Após o cadastro, nossa equipe avaliará sua solicitação. A data
+                  e o horário só estarão confirmados após aprovação expressa por
+                  e-mail. Confira também a caixa de spam.
+                </p>
+                <p class="invite-approval">
+                  <svg class="landing-icon" aria-hidden="true">
+                    <use href="#locomotiva-icon-info" />
+                  </svg>
+                  <strong>Enviar o cadastro não confirma sua visita.</strong>
+                </p>
               </div>
             </article>
           </div>
         </div>
       </section>
-      <section id="locomotiva-participation-guide" class="landing-shell landing-section" aria-labelledby="locomotiva-guide-title">
+      <section
+        id="locomotiva-participation-guide"
+        class="landing-shell landing-section"
+        aria-labelledby="locomotiva-guide-title"
+      >
         <div class="landing-heading">
           <h2 id="locomotiva-guide-title">Como participar da campanha</h2>
         </div>
         <ol class="participation-steps">
-            <li id="locomotiva-guide-conditions" class="participation-step">
-              <span class="participation-step-number" aria-hidden="true">1</span>
-              <div><h3>Leia as condições</h3><p>Conheça as regras da campanha e o termo de autorização de uso de imagem.</p></div>
-            </li>
-            <li id="locomotiva-guide-registration" class="participation-step">
-              <span class="participation-step-number" aria-hidden="true">2</span>
-              <div><h3>Cadastre-se e solicite uma data</h3><p>Preencha seus dados, escolha uma data disponível, o horário e a modalidade de conteúdo.</p></div>
-            </li>
-            <li id="locomotiva-guide-approval" class="participation-step">
-              <span class="participation-step-number" aria-hidden="true">3</span>
-              <div><h3>Aguarde a aprovação por e-mail</h3><p>Nossa equipe avaliará a solicitação e enviará a confirmação da participação.</p></div>
-            </li>
+          <li id="locomotiva-guide-conditions" class="participation-step">
+            <span class="participation-step-number" aria-hidden="true">1</span>
+            <div>
+              <h3>Leia as condições</h3>
+              <p>
+                Conheça as regras da campanha e o termo de autorização de uso de
+                imagem.
+              </p>
+            </div>
+          </li>
+          <li id="locomotiva-guide-registration" class="participation-step">
+            <span class="participation-step-number" aria-hidden="true">2</span>
+            <div>
+              <h3>Cadastre-se e solicite uma data</h3>
+              <p>
+                Preencha seus dados, escolha uma data disponível, o horário e a
+                modalidade de conteúdo.
+              </p>
+            </div>
+          </li>
+          <li id="locomotiva-guide-approval" class="participation-step">
+            <span class="participation-step-number" aria-hidden="true">3</span>
+            <div>
+              <h3>Aguarde a aprovação por e-mail</h3>
+              <p>
+                Nossa equipe avaliará a solicitação e enviará a confirmação da
+                participação.
+              </p>
+            </div>
+          </li>
         </ol>
-        <aside id="locomotiva-final-invitation" class="landing-final landing-dark landing-metal" aria-labelledby="locomotiva-final-title">
-          <h2 id="locomotiva-final-title">Pronto para viver essa experiência?</h2>
-          <p>Leia as condições da campanha e o termo de autorização de uso de imagem antes de se cadastrar.</p>
-          <a id="locomotiva-final-participate" class="primary-action landing-action" href="./condicoes.html">Ler condições e participar <svg class="landing-icon" aria-hidden="true"><use href="#locomotiva-icon-arrow"/></svg></a>
-          <p class="landing-final-note">A participação está sujeita à aprovação do restaurante.</p>
+        <aside
+          id="locomotiva-final-invitation"
+          class="landing-final landing-dark landing-metal"
+          aria-labelledby="locomotiva-final-title"
+        >
+          <h2 id="locomotiva-final-title">
+            Pronto para viver essa experiência?
+          </h2>
+          <p>
+            Leia as condições da campanha e o termo de autorização de uso de
+            imagem antes de se cadastrar.
+          </p>
+          <a
+            id="locomotiva-final-participate"
+            class="primary-action landing-action"
+            href="./condicoes.html"
+            >Ler condições e participar
+            <svg class="landing-icon" aria-hidden="true">
+              <use href="#locomotiva-icon-arrow" /></svg
+          ></a>
+          <p class="landing-final-note">
+            A participação está sujeita à aprovação do restaurante.
+          </p>
         </aside>
       </section>
     </main>
-    <footer id="locomotiva-footer" class="landing-footer landing-dark landing-metal">
+    <footer
+      id="locomotiva-footer"
+      class="landing-footer landing-dark landing-metal"
+    >
       <div class="landing-shell landing-footer-inner">
-        <img src="./assets/locomotiva-logo-white.png" width="1132" height="706" alt="Locomotiva Restaurante" />
+        <img
+          src="./assets/locomotiva-logo-white.png x"
+          width="1132"
+          height="706"
+          alt="Locomotiva Restaurante"
+        />
         <p>Campanha de inauguração • Novembro de 2026</p>
-        <nav id="locomotiva-footer-documents" class="landing-footer-documents" aria-label="Documentos da campanha" hidden>
-          <a href="./condicoes.html#locomotiva-document-conditions" id="locomotiva-footer-conditions" hidden>Condições da campanha</a>
-          <a href="./condicoes.html#locomotiva-document-privacy" id="locomotiva-footer-privacy" hidden>Aviso de privacidade</a>
+        <nav
+          id="locomotiva-footer-documents"
+          class="landing-footer-documents"
+          aria-label="Documentos da campanha"
+          hidden
+        >
+          <a
+            href="./condicoes.html#locomotiva-document-conditions"
+            id="locomotiva-footer-conditions"
+            hidden
+            >Condições da campanha</a
+          >
+          <a
+            href="./condicoes.html#locomotiva-document-privacy"
+            id="locomotiva-footer-privacy"
+            hidden
+            >Aviso de privacidade</a
+          >
         </nav>
       </div>
     </footer>

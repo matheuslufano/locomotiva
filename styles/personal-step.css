@@ -215,14 +215,39 @@ body[data-registration-step="2"] .registration-header img {
   outline-offset: 3px;
 }
 
-#locomotiva-step-2 .consent-control {
-  margin: 12px 0;
-  padding: 10px;
-  font-size: 12px;
+#locomotiva-cpf[aria-invalid="true"] {
+  border-color: #a12624;
 }
-
-#locomotiva-step-2 .small-note {
-  font-size: 10px;
+.registration-profile-dialog {
+  box-sizing: border-box;
+  width: min(30rem, calc(100% - 2rem));
+  max-height: calc(100% - 2rem);
+  padding: clamp(1rem, 4vw, 1.5rem);
+  border: 1px solid #93431e;
+  border-radius: 12px;
+  background: #fff8ee;
+  color: #452819;
+  overflow-wrap: anywhere;
+}
+.registration-profile-dialog::backdrop {
+  background: #160b0bc2;
+}
+.registration-profile-confirmation {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.registration-profile-confirmation img {
+  object-fit: cover;
+  border-radius: 50%;
+}
+#locomotiva-cpf-feedback {
+  color: #285a3d;
+  font-weight: 600;
+}
+#locomotiva-cpf[aria-invalid="true"] ~ #locomotiva-cpf-feedback {
+  color: #a12624;
 }
 
 .registration-section[data-step="2"] .form-actions {

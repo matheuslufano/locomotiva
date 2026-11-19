@@ -12,8 +12,10 @@
     get("success-state").textContent = "Em análise";
     get("success-state").hidden = false;
     get("success-details").hidden = false;
-    get("success-spam").hidden = false;
-    get("success-message").textContent = "Sua participação ainda não está confirmada. Enviaremos o retorno por e-mail.";
+    get("success-spam").hidden = Boolean(result.localTest);
+    get("success-message").textContent = result.localTest
+      ? "Solicitação de teste gravada no ambiente local. Nenhum e-mail será enviado."
+      : "Sua participação ainda não está confirmada. Enviaremos o retorno por e-mail.";
     const date = new Date(result.date + "T12:00:00-03:00");
     get("success-date").textContent = new Intl.DateTimeFormat("pt-BR", {
       day: "numeric", month: "long", year: "numeric", timeZone: "America/Araguaina",
