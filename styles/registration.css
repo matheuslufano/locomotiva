@@ -1,0 +1,306 @@
+.registration-page {
+  background: #191a18;
+}
+
+.registration-header {
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: linear-gradient(90deg, #191a1844, #191a18 38%, #191a1844), url("../assets/locomotiva-background.webp") center 44% / cover;
+  border-bottom: 2px solid #aa6139;
+}
+
+.registration-header a {
+  background: #faf5ec;
+  padding: 12px 28px;
+  border: 1px solid #c99568;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px #0005;
+}
+
+.registration-header img {
+  display: block;
+  width: clamp(140px, 25vw, 220px);
+  height: auto;
+}
+
+.registration-section {
+  max-width: 1080px;
+  background: #faf5ec;
+  margin: 24px auto;
+  padding: clamp(20px, 4vw, 48px);
+  border: 1px solid #c99568;
+  border-radius: 24px;
+}
+
+.registration-heading h1 {
+  font: 650 clamp(30px, 5vw, 48px)/1.12 system-ui, sans-serif;
+  letter-spacing: -.035em;
+  margin: 12px 0;
+}
+
+.registration-benefit {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  align-items: center;
+  border: 1px solid #c99568;
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  background: #f1e4d5;
+}
+
+.registration-benefit img {
+  display: block;
+  width: 100%;
+  height: clamp(160px, 26vw, 280px);
+  object-fit: cover;
+}
+
+.registration-benefit div {
+  padding: 18px;
+}
+
+.registration-benefit strong,
+.registration-benefit span {
+  display: block;
+}
+
+.registration-benefit strong {
+  color: #844022;
+  font-size: clamp(20px, 3vw, 28px);
+}
+
+.registration-benefit p {
+  margin: 6px 0 0;
+  font-size: 14px;
+}
+
+.registration-summary,
+#locomotiva-documents details {
+  background: #fffdf8;
+  border: 1px solid #dfd1c1;
+  border-radius: 12px;
+  margin-block: 12px;
+}
+
+.registration-summary summary {
+  padding: 16px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.registration-summary p {
+  padding: 0 16px 16px;
+  margin: 0;
+}
+
+.form-progress li {
+  padding: 12px 8px;
+  text-align: center;
+  background: transparent;
+  border-radius: 0;
+  font-weight: 600;
+}
+
+.form-progress li[aria-current] {
+  background: #f1dcc7;
+  border-radius: 12px 12px 0 0;
+}
+
+.registration-page .primary-action {
+  background: linear-gradient(135deg, #ab6036, #844022);
+  border-color: #a45632;
+  font-weight: 650;
+}
+
+.registration-page .primary-action:hover {
+  background: #713414;
+}
+
+.registration-page input:not([type="checkbox"]),
+.registration-page select {
+  border-color: #b99376;
+}
+
+.registration-page .consent-control {
+  padding: 14px;
+  border-radius: 10px;
+  background: #fffdf8;
+}
+
+.registration-page .profile-preview,
+.registration-page .review-panel {
+  background: #f1e4d5;
+  padding: 20px;
+  border-radius: 14px;
+}
+
+.registration-page .date-option[aria-pressed="true"] {
+  background: #93431e;
+}
+
+.registration-footer {
+  color: #eee3d4;
+  text-align: center;
+  font-size: 13px;
+  padding: 20px;
+}
+
+#locomotiva-registration-mount > p,
+.registration-page noscript {
+  display: block;
+  color: #fff6e9;
+  padding: 24px;
+}
+
+@media (max-width: 699px) {
+  .registration-section {
+    margin: 14px 12px;
+    padding: 20px 16px;
+    border-radius: 18px;
+  }
+
+  .registration-heading {
+    margin-bottom: 20px;
+  }
+
+  .form-progress {
+    gap: 4px;
+  }
+
+  .form-progress li {
+    font-size: 11px;
+  }
+
+  .registration-page .form-actions button {
+    flex: 1 1 100%;
+  }
+
+  .registration-page .profile-preview {
+    flex-wrap: wrap;
+  }
+}
+
+#locomotiva-form legend {
+  font: 650 clamp(20px, 3vw, 26px)/1.2 system-ui, sans-serif;
+}
+
+
+.registration-terms-link {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  color: #88451f;
+  font-weight: 650;
+  text-underline-offset: 4px;
+}
+
+#locomotiva-form .registration-choice-select {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  min-height: 0;
+  clip-path: inset(50%);
+  overflow: hidden;
+}
+
+#locomotiva-form .registration-choice-select:focus-visible {
+  position: static;
+  width: 100%;
+  min-height: 48px;
+  clip-path: none;
+}
+
+.registration-choice-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.registration-choice-button {
+  flex: 1 1 110px;
+  min-height: 48px;
+  padding: 10px 14px;
+  border: 1px solid #b87e54;
+  border-radius: 12px;
+  color: #30251d;
+  background: #fffdf8;
+  transition: background-color .18s;
+}
+
+.registration-choice-button[aria-pressed="true"] {
+  color: #fff;
+  background: #93431e;
+  border-color: #93431e;
+  font-weight: 700;
+}
+
+.registration-page .date-option {
+  font-size: 24px;
+  font-weight: 650;
+  padding-block: 12px;
+  border-color: #b87e54;
+  border-radius: 12px;
+}
+
+.registration-page .date-option span {
+  font-size: 11px;
+  font-weight: 400;
+}
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 699px) {
+  .registration-section[data-step="1"] {
+    background: #191a18;
+    border-color: transparent;
+    color: #faf5ec;
+  }
+
+  .registration-section[data-step="1"] .registration-benefit,
+  .registration-section[data-step="1"] .registration-summary,
+  .registration-section[data-step="1"] #locomotiva-documents,
+  .registration-section[data-step="1"] .consent-control {
+    color: #30251d;
+  }
+
+  .registration-section[data-step="1"] #locomotiva-form fieldset > p {
+    color: #dfd2c4;
+  }
+
+  .registration-section[data-step="1"] .approval-notice {
+    color: #30251d;
+  }
+
+  .registration-section[data-step="1"] .registration-terms-link {
+    color: #f0b78c;
+  }
+
+  .registration-section[data-step="1"] .form-progress li {
+    color: #e5d5c7;
+  }
+
+  .registration-section[data-step="1"] .form-progress li[aria-current] {
+    background: #93431e;
+    color: #fff;
+  }
+
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .registration-choice-button {
+    transition: none;
+  }
+}

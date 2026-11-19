@@ -1,0 +1,283 @@
+/* Visit selection shares the existing form controls and campaign API. */
+body[data-registration-step="3"] {
+  --visit-copper: #a65226;
+  --visit-line: #b9855f;
+  --visit-paper: #faf5ee;
+}
+
+body[data-registration-step="3"] .registration-header {
+  position: relative;
+  overflow: hidden;
+  padding-block: 18px 26px;
+}
+
+body[data-registration-step="3"] .registration-header::after {
+  content: "";
+  position: absolute;
+  width: clamp(110px, 23vw, 220px);
+  aspect-ratio: 1;
+  right: -38px;
+  bottom: -20px;
+  border: 2px solid #b9855f;
+  border-radius: 50%;
+  background: url("../assets/pratos/chapa-alecrim-vertical.webp") center / cover;
+  pointer-events: none;
+}
+
+body[data-registration-step="3"] .registration-header a {
+  position: relative;
+  z-index: 1;
+}
+
+.registration-section[data-step="3"] {
+  width: min(calc(100% - 24px), 820px);
+  margin: -1px auto 20px;
+  border-radius: 32px 32px 24px 24px;
+  background: var(--visit-paper);
+  padding: clamp(20px, 4vw, 36px);
+  box-shadow: 0 -3px 0 #a6522655;
+}
+
+.registration-section[data-step="3"] .registration-heading {
+  margin-bottom: 4px;
+}
+
+.registration-section[data-step="3"] .eyebrow {
+  font-size: clamp(12px, 2.2vw, 17px);
+  letter-spacing: .02em;
+  text-transform: none;
+  color: #48392d;
+}
+
+.registration-section[data-step="3"] .registration-heading h1 {
+  font-size: clamp(32px, 5vw, 48px);
+}
+
+.registration-section[data-step="3"] .form-progress,
+#locomotiva-step-3 .visit-screen-reader {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  clip-path: inset(50%);
+  overflow: hidden;
+}
+
+#locomotiva-step-3 .visit-subtitle {
+  text-align: center;
+  font-size: clamp(18px, 3vw, 25px);
+  color: #49433d;
+  margin: 0 0 24px;
+}
+
+#locomotiva-step-3 .date-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(6px, 1.4vw, 12px);
+  padding: clamp(8px, 2vw, 16px);
+  margin: 0 0 20px;
+  border: 1px solid var(--visit-line);
+  border-radius: 18px;
+  background: #fffdf899;
+}
+
+#locomotiva-step-3 .date-option {
+  min-width: 0;
+  min-height: 66px;
+  padding: 8px 2px;
+  font: 700 clamp(21px, 4vw, 34px)/1.1 system-ui, sans-serif;
+  border-color: var(--visit-line);
+  border-radius: 12px;
+  color: #25211e;
+  background: var(--visit-paper);
+}
+
+#locomotiva-step-3 .date-option span {
+  font-size: clamp(12px, 2vw, 17px);
+  line-height: 1.2;
+  font-weight: 500;
+  margin-top: 3px;
+}
+
+#locomotiva-step-3 .date-option:disabled {
+  opacity: 1;
+  color: #77716a;
+  background: #e3dfd9;
+  border-color: #d8d0c8;
+}
+
+#locomotiva-step-3 .date-option[aria-pressed="true"],
+#locomotiva-step-3 .registration-choice-button[aria-pressed="true"] {
+  background: linear-gradient(120deg, #a55227, #b76b3b);
+  border-color: var(--visit-copper);
+  color: #fff;
+}
+
+.visit-choice-field {
+  margin-bottom: 20px;
+  min-width: 0;
+}
+
+.visit-choice-field > label {
+  display: block;
+  font-size: clamp(18px, 2.5vw, 23px);
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  margin-bottom: 10px;
+}
+
+#locomotiva-step-3 .registration-choice-group {
+  margin-bottom: 0;
+  gap: 8px;
+}
+
+#locomotiva-period-choices {
+  padding: 4px;
+  border: 1px solid var(--visit-line);
+  border-radius: 16px;
+}
+
+#locomotiva-period-choices .registration-choice-button {
+  border: 0;
+}
+
+#locomotiva-period-choices svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+#locomotiva-step-3 .registration-choice-button {
+  min-width: 0;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: clamp(16px, 2.8vw, 23px);
+  padding: 10px;
+}
+
+#locomotiva-time-choices {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+#locomotiva-modality-choices {
+  flex-direction: column;
+}
+
+#locomotiva-modality-choices .registration-choice-button {
+  flex-basis: auto;
+  text-align: left;
+  justify-content: flex-start;
+  font-size: clamp(16px, 2.7vw, 22px);
+}
+
+#locomotiva-modality-choices .registration-choice-button::before {
+  content: "";
+  width: 19px;
+  height: 19px;
+  flex: none;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+}
+
+#locomotiva-modality-choices .registration-choice-button[aria-pressed="true"] {
+  color: #743a1e;
+  background: #f2e5d8;
+}
+
+#locomotiva-modality-choices .registration-choice-button[aria-pressed="true"]::before {
+  background: radial-gradient(currentColor 48%, transparent 52%);
+}
+
+.visit-help {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: #68584a;
+}
+
+.visit-summary {
+  display: grid;
+  grid-template-columns: minmax(80px, .6fr) minmax(0, 1.4fr);
+  align-items: center;
+  gap: 14px;
+  padding: 8px;
+  border: 1px solid var(--visit-line);
+  border-radius: 16px;
+  background: #fffdf8;
+}
+
+.visit-summary img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.visit-summary > div {
+  border-left: 1px solid var(--visit-line);
+  padding-left: 12px;
+}
+
+.visit-summary p {
+  margin: 4px 0;
+  font-size: clamp(14px, 2.4vw, 20px);
+  line-height: 1.4;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.visit-review-details {
+  margin-top: 12px;
+}
+
+.visit-review-details summary {
+  min-height: 44px;
+  padding: 10px 0;
+  color: #844022;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.visit-approval-icon,
+.visit-submit-icon {
+  width: 28px;
+  height: 28px;
+  flex: none;
+}
+
+.registration-section[data-step="3"] #locomotiva-approval-notice {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: 1px solid #e9c399;
+  border-radius: 14px;
+  background: #ffe4bb;
+  color: #713810;
+}
+
+.registration-section[data-step="3"] .form-actions {
+  flex-direction: column-reverse;
+  margin-top: 16px;
+}
+
+.registration-section[data-step="3"] #locomotiva-submit,
+.registration-section[data-step="3"] #locomotiva-preview-submit {
+  width: 100%;
+  margin: 0;
+  font-size: clamp(18px, 3vw, 26px);
+  border-radius: 14px;
+  min-height: 56px;
+}
+
+.registration-section[data-step="3"] #locomotiva-back {
+  border-color: transparent;
+  min-height: 44px;
+}

@@ -1,0 +1,240 @@
+      <section id="locomotiva-registration" class="registration-section" aria-labelledby="locomotiva-registration-title">
+        <div class="registration-heading">
+          <ol id="locomotiva-progress" class="form-progress" aria-label="Etapas da solicitação">
+            <li id="locomotiva-progress-1" aria-current="step">
+              <span class="conditions-progress-label">Condições e imagem</span>
+            </li>
+            <li id="locomotiva-progress-2"><span class="conditions-progress-label">Seus dados</span></li>
+            <li id="locomotiva-progress-3"><span class="conditions-progress-label">Visita e revisão</span></li>
+          </ol>
+          <p class="eyebrow"><span id="locomotiva-step-caption">Etapa 1 de 3 • Condições</span></p>
+          <h1 id="locomotiva-registration-title" tabindex="-1">Antes de participar</h1>
+        </div>
+        <p id="locomotiva-status" role="status" aria-live="polite">
+          Consultando a campanha…
+        </p>
+        <form id="locomotiva-form" hidden autocomplete="off">
+
+          <fieldset id="locomotiva-step-1">
+            <legend class="conditions-screen-reader">Condições de participação</legend>
+            <div class="registration-benefit">
+              <img src="./assets/pratos/chapa-alecrim-vertical.webp" width="572" height="1200" alt="Carne servida na chapa na Locomotiva" />
+              <h2 class="desktop-only conditions-invitation-title">Seu convite</h2>
+              <div class="conditions-voucher">
+                <svg viewBox="0 0 48 40" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M3 5h42v8a7 7 0 0 0 0 14v8H3v-8a7 7 0 0 0 0-14V5Z"/><path d="M17 11v7m4-7v7m-8-7v6a4 4 0 0 0 8 0m-4 4v10m15-20c-5 1-6 5-6 10h6m0-10v20"/></svg>
+                <div><p><strong>R$ 200</strong> <span>• 21 a 30 de novembro</span></p><p>Voucher para visitas aprovadas na campanha.</p></div>
+              </div>
+            </div>
+            <div class="conditions-desktop-copy">
+            <details class="registration-summary"><summary>Regras da campanha</summary><p id="locomotiva-conditions-summary">A visita está sujeita à aprovação do restaurante. Consulte o regulamento completo antes de participar.</p></details>
+            <details class="registration-summary" open><summary>Produção de conteúdo</summary><p>Antes da visita: 2 Stories de aquecimento. No dia da visita: escolha 4 Stories OU 1 Reels de 60 segundos.</p></details>
+            <details class="registration-summary" open><summary>Uso de imagem</summary><p>Leia os limites da autorização no termo completo abaixo.</p></details>
+            <a id="locomotiva-read-terms" class="registration-terms-link" href="#locomotiva-document-conditions">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 3h9l5 5v13H5V3Z"/><path d="M14 3v6h5M8 13h8m-8 4h8"/></svg>
+              Ler termo completo
+            </a>
+            <dialog id="locomotiva-terms-dialog" class="conditions-terms-dialog" aria-labelledby="locomotiva-terms-dialog-title">
+              <h2 id="locomotiva-terms-dialog-title">Documentos da campanha</h2>
+              <div id="locomotiva-documents"></div>
+              <button id="locomotiva-close-terms" type="button" class="secondary-action">Voltar às condições</button>
+            </dialog>
+            <div id="locomotiva-consents" class="conditions-consents">
+            <label class="consent-control"
+              ><input
+                id="locomotiva-accept-conditions"
+                type="checkbox"
+                required
+              />Li e aceito as condições de participação na campanha.</label
+            ><label class="consent-control"
+              ><input id="locomotiva-accept-image" type="checkbox" required />Li
+              e autorizo o uso da minha imagem, nos limites descritos no
+              termo.</label
+            ><label class="consent-control"
+              ><input
+                id="locomotiva-accept-privacy"
+                type="checkbox"
+                required
+              />Declaro que li o aviso de privacidade e estou ciente do
+              tratamento dos meus dados.</label
+            >
+            </div>
+            </div>
+          </fieldset>
+          <fieldset id="locomotiva-step-2" hidden disabled>
+            <legend class="personal-screen-reader">Dados pessoais e perfil do Instagram</legend>
+            <div class="personal-desktop-main">
+            <div class="field-grid personal-fields">
+              <label id="locomotiva-name-label" for="locomotiva-name"><span class="personal-label-text">Nome completo <span class="personal-required" aria-hidden="true">*</span></span><input id="locomotiva-name"
+                  name="name"
+                  required
+                  maxlength="150"
+                  autocomplete="off"
+              /></label>
+              <label id="locomotiva-cpf-label" for="locomotiva-cpf"><span class="personal-label-text">CPF <span class="personal-required" aria-hidden="true">*</span></span><input id="locomotiva-cpf"
+                  name="cpf"
+                  required
+                  inputmode="numeric"
+                  maxlength="14"
+                  aria-describedby="locomotiva-cpf-help"
+                /><small id="locomotiva-cpf-help"
+                  >Protegido e disponível apenas à equipe autorizada.</small
+                ></label
+              >
+              <label id="locomotiva-email-label" for="locomotiva-email"><span class="personal-label-text">E-mail <span class="personal-required" aria-hidden="true">*</span></span><input id="locomotiva-email"
+                  name="email"
+                  type="email"
+                  required
+                  maxlength="254"
+              /></label>
+              <label id="locomotiva-email-confirmation-label" for="locomotiva-email-confirmation"><span class="personal-label-text">Confirmar e-mail <span class="personal-required" aria-hidden="true">*</span></span><input id="locomotiva-email-confirmation"
+                  name="emailConfirmation"
+                  type="email"
+                  required
+                  maxlength="254"
+              /></label>
+              <label id="locomotiva-phone-label" for="locomotiva-phone"><span class="personal-label-text">WhatsApp (com DDD) <span class="personal-required" aria-hidden="true">*</span></span><input id="locomotiva-phone"
+                  name="phone"
+                  type="tel"
+                  inputmode="tel"
+                  required
+                  maxlength="16"
+              /></label>
+              <label id="locomotiva-city-label" for="locomotiva-city"><span class="personal-label-text">Cidade <span class="personal-required" aria-hidden="true">*</span></span><input id="locomotiva-city"
+                  name="city"
+                  required
+                  maxlength="100"
+              /></label>
+              <label id="locomotiva-uf-label" for="locomotiva-uf"><span class="personal-label-text">UF <span class="personal-required" aria-hidden="true">*</span></span><select id="locomotiva-uf" name="uf" required>
+                  <option value="">UF</option>
+                </select></label
+              >
+              <label id="locomotiva-instagram-label" for="locomotiva-instagram"><span class="personal-label-text">Usuário do Instagram <span class="personal-required" aria-hidden="true">*</span></span><input id="locomotiva-instagram"
+                  name="instagram"
+                  placeholder="@seuperfil"
+                  required
+                  maxlength="31"
+                  autocapitalize="none"
+              /></label>
+              <label id="locomotiva-profile-url-label" for="locomotiva-profile-url"><span class="personal-label-text">Link do perfil do Instagram <span class="personal-required" aria-hidden="true">*</span></span><input id="locomotiva-profile-url"
+                  name="profileUrl"
+                  type="url"
+                  placeholder="https://www.instagram.com/seuperfil/"
+                  required
+              /></label>
+            </div>
+            </div>
+            <aside class="personal-desktop-sidebar" aria-label="Seu perfil">
+            <div class="profile-preview personal-profile">
+              <img id="locomotiva-photo-preview" src="./profile-placeholder.svg" alt="Prévia da foto do participante" width="72" height="72" />
+              <div class="personal-profile-copy">
+                <strong id="locomotiva-profile-name">Seu perfil</strong>
+                <button id="locomotiva-check-profile" type="button" class="personal-profile-check"><svg class="personal-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg> Conferir perfil <span aria-hidden="true">↗</span></button>
+                <a id="locomotiva-open-profile" class="personal-profile-link" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" hidden>Abrir perfil informado ↗</a>
+              </div>
+            </div>
+            <p id="locomotiva-profile-status" class="personal-profile-status" role="status">Confira o perfil informado. Você também pode enviar uma foto opcional.</p>
+            <label id="locomotiva-photo-upload-label" class="personal-photo-upload" for="locomotiva-photo-upload">
+              <svg class="personal-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8" cy="9" r="1.5"/><path d="m3 16 5-4 4 4 4-6 5 6"/></svg>
+              <span>Foto indisponível? Envie uma imagem.</span>
+              <input id="locomotiva-photo-upload" type="file" accept="image/jpeg,image/png,image/webp" aria-describedby="locomotiva-photo-help" />
+            </label>
+            <small id="locomotiva-photo-help" class="personal-photo-help">Foto opcional • JPEG, PNG ou WebP • Até 500 KB</small>
+<label class="consent-control"
+              ><input
+                id="locomotiva-profile-confirmed"
+                type="checkbox"
+                required
+              />Conferi e confirmo que o perfil informado está correto.</label
+            >
+            <p class="small-note">
+              Essa confirmação não representa verificação de titularidade pela
+              Locomotiva.
+            </p>
+              <img class="desktop-only personal-sidebar-dish" src="./assets/pratos/chapa-alecrim-vertical.webp" width="572" height="1200" alt="Carne servida na Locomotiva" loading="lazy" />
+            </aside>
+          </fieldset>
+          <fieldset id="locomotiva-step-3" hidden disabled>
+            <legend class="visit-screen-reader">Escolha a data, o período, o horário e o formato do conteúdo</legend>
+            <div class="visit-desktop-options">
+            <p class="visit-subtitle">Um influenciador por dia.</p>
+            <div id="locomotiva-dates" class="date-grid" role="group" aria-label="Datas de novembro de 2026"></div>
+            <div class="visit-choice-field">
+              <label for="locomotiva-period">Período da visita</label>
+              <select id="locomotiva-period" name="period" required data-choice-control="period">
+                <option value="">Selecione</option>
+                <option value="lunch">Almoço</option>
+                <option value="dinner">Jantar</option>
+              </select>
+            </div>
+            <div class="visit-choice-field">
+              <label id="locomotiva-time-label" for="locomotiva-time">Horário de chegada</label>
+              <select id="locomotiva-time" name="time" required data-choice-control="time">
+                <option value="">Selecione a data e o período</option>
+              </select>
+              <p id="locomotiva-time-empty" class="visit-help">Selecione uma data e um período para consultar os horários.</p>
+            </div>
+            <div class="visit-choice-field">
+              <label for="locomotiva-modality">Formato do conteúdo presencial</label>
+              <select id="locomotiva-modality" name="modality" required data-choice-control="modality">
+                <option value="STORIES">4 Stories (exclusivo)</option>
+                <option value="REELS">1 Reels de 60 segundos (exclusivo)</option>
+              </select>
+              <p class="visit-help">Além da modalidade escolhida, publique os 2 Stories de aquecimento antes da visita.</p>
+            </div>
+            </div>
+            <aside class="visit-desktop-sidebar" aria-labelledby="locomotiva-visit-sidebar-title">
+            <h2 id="locomotiva-visit-sidebar-title" class="desktop-only">Resumo da solicitação</h2>
+            <p id="locomotiva-visit-summary-name" class="desktop-only visit-summary-name"></p>
+            <div class="visit-summary" aria-live="polite">
+              <img src="./assets/pratos/carne-molho-horizontal.webp" alt="Prato servido no Restaurante Locomotiva" width="1100" height="620" />
+              <div>
+                <p id="locomotiva-visit-summary-date">Selecione sua visita</p>
+                <p id="locomotiva-visit-summary-content">4 Stories • Voucher R$ 200</p>
+              </div>
+            </div>
+            <details class="visit-review-details">
+              <summary>Conferir os dados da solicitação</summary>
+              <div id="locomotiva-review" class="review-panel"></div>
+            </details>
+            </aside>
+          </fieldset>
+          <div class="honey-field" aria-hidden="true">
+            <label
+              >Website<input
+                id="locomotiva-website"
+                name="website"
+                tabindex="-1"
+                autocomplete="off"
+            /></label>
+          </div>
+        <p id="locomotiva-approval-notice" class="approval-notice">
+          <svg class="visit-approval-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>
+          <strong>A visita depende de aprovação por e-mail.</strong>
+        </p>
+          <p id="locomotiva-registration-closed" class="approval-notice" hidden>
+            Você pode conhecer a proposta da campanha nesta página. Os termos completos, os aceites e o cadastro serão habilitados após a configuração final do restaurante.
+          </p>
+          <div class="form-actions">
+            <button
+              id="locomotiva-back"
+              type="button"
+              class="secondary-action"
+              hidden
+            >
+              Voltar</button
+            ><button id="locomotiva-next" type="button" class="primary-action">
+              Continuar <span aria-hidden="true">→</span></button
+            ><button
+              id="locomotiva-submit"
+              type="submit"
+              class="primary-action"
+              hidden
+            >
+              <svg class="visit-submit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="m21 3-6 18-4-8-8-4 18-6ZM11 13 21 3"/></svg>
+              Enviar solicitação
+            </button>
+            <button id="locomotiva-preview-submit" type="button" class="primary-action" hidden>Simular envio (prévia)</button>
+          </div>
+        </form>
+
+      </section>

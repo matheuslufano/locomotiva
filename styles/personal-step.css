@@ -1,0 +1,271 @@
+/* Personal-data step follows the supplied card layout; other steps keep their styles. */
+body[data-registration-step="2"] .registration-header {
+  padding: 8px 20px 12px;
+  background-position: center 40%;
+  border-bottom: 0;
+}
+
+body[data-registration-step="2"] .registration-header a {
+  padding: 6px 18px;
+  border: 2px solid #ba7946;
+  border-radius: 20px;
+}
+
+body[data-registration-step="2"] .registration-header img {
+  width: clamp(145px, 40vw, 300px);
+  height: auto;
+}
+
+.registration-section[data-step="2"] {
+  position: relative;
+  width: min(calc(100% - 16px), 820px);
+  max-width: 820px;
+  margin: 0 auto 12px;
+  padding: clamp(20px, 5vw, 46px);
+  background: linear-gradient(110deg, #faf5ee, #fffaf5, #faf4ed);
+  border: 7px solid #f8f5ef;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px #0003;
+}
+
+.registration-section[data-step="2"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid #ba7946;
+  border-radius: 14px;
+  pointer-events: none;
+}
+
+.registration-section[data-step="2"] .registration-heading {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.registration-section[data-step="2"] .eyebrow {
+  display: inline-block;
+  margin: 0 0 8px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: #f0ddcb;
+  color: #382318;
+  font-size: clamp(12px, 2.7vw, 20px);
+  line-height: 1.4;
+  letter-spacing: 0;
+  font-weight: 700;
+}
+
+.registration-section[data-step="2"] .registration-heading h1 {
+  font-size: clamp(26px, 6.4vw, 48px);
+  line-height: 1.15;
+  letter-spacing: -.035em;
+  margin: 0;
+}
+
+.registration-section[data-step="2"] .form-progress,
+#locomotiva-step-2 .personal-screen-reader {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  clip-path: inset(50%);
+  overflow: hidden;
+}
+
+#locomotiva-step-2 .personal-fields {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(80px, 1fr);
+  gap: 12px 14px;
+  margin: 0 0 18px;
+}
+
+#locomotiva-step-2 .personal-fields > label {
+  grid-column: 1 / -1;
+  gap: 5px;
+  font-size: clamp(14px, 3.3vw, 22px);
+  line-height: 1.25;
+  font-weight: 650;
+  min-width: 0;
+}
+
+#locomotiva-step-2 #locomotiva-city-label {
+  grid-column: 1;
+}
+
+#locomotiva-step-2 #locomotiva-uf-label {
+  grid-column: 2;
+}
+
+.personal-required {
+  color: #93431e;
+}
+
+#locomotiva-step-2 .personal-fields input,
+#locomotiva-step-2 .personal-fields select {
+  border: 1px solid #a96231;
+  border-radius: 8px;
+  background: #fffcf855;
+  padding: 8px 10px;
+  min-height: 44px;
+  font-size: clamp(16px, 3.8vw, 27px);
+  font-weight: 400;
+}
+
+#locomotiva-step-2 .personal-fields input::placeholder {
+  color: #8b8179;
+  opacity: 1;
+  font-size: clamp(13px, 3.2vw, 22px);
+}
+
+#locomotiva-step-2 .personal-fields small {
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+#locomotiva-step-2 .personal-profile {
+  display: grid;
+  grid-template-columns: clamp(64px, 18vw, 125px) minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  padding: 12px;
+  margin: 0;
+  border-radius: 14px;
+  background: #f1e5d9;
+}
+
+.personal-profile img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  border: 2px solid #bd7941;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.personal-profile-copy {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.personal-profile-copy strong {
+  font-size: clamp(19px, 4.4vw, 30px);
+  line-height: 1.25;
+  color: #302117;
+  overflow-wrap: anywhere;
+}
+
+.personal-profile-check,
+.personal-profile-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  color: #8c431b;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font-size: clamp(14px, 3.4vw, 22px);
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.personal-icon {
+  width: 22px;
+  height: 22px;
+  flex: none;
+}
+
+.personal-profile-status,
+.personal-photo-help {
+  display: block;
+  margin: 6px 0 12px;
+  font-size: 11px;
+  line-height: 1.5;
+  color: #705c4b;
+}
+
+#locomotiva-step-2 .personal-photo-upload {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 10px;
+  min-height: 44px;
+  border-radius: 12px;
+  background: #f1e5d9;
+  color: #493120;
+  font-size: clamp(13px, 3.1vw, 21px);
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.personal-photo-upload input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  clip-path: inset(50%);
+  overflow: hidden;
+}
+
+.personal-photo-upload:focus-within {
+  outline: 3px solid #93431e;
+  outline-offset: 3px;
+}
+
+#locomotiva-step-2 .consent-control {
+  margin: 12px 0;
+  padding: 10px;
+  font-size: 12px;
+}
+
+#locomotiva-step-2 .small-note {
+  font-size: 10px;
+}
+
+.registration-section[data-step="2"] .form-actions {
+  display: grid;
+  grid-template-columns: minmax(90px, .8fr) minmax(0, 1.3fr);
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.registration-section[data-step="2"] .form-actions button {
+  min-width: 0;
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 8px;
+  margin: 0;
+  border-radius: 12px;
+  font-size: clamp(15px, 3.6vw, 25px);
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+.registration-section[data-step="2"] #locomotiva-back {
+  border: 2px solid #a65226;
+}
+
+.registration-section[data-step="2"] #locomotiva-back::before {
+  content: "←";
+}
+
+body[data-registration-step="2"] .registration-footer {
+  padding: 12px;
+  font-size: 11px;
+}
+
+.registration-section[data-step="2"] #locomotiva-approval-notice {
+  display: none;
+}
+
+.registration-section[data-step="2"] #locomotiva-registration-closed {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font-size: 11px;
+  line-height: 1.5;
+  color: #705c4b;
+}

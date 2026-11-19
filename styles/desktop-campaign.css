@@ -1,0 +1,839 @@
+/* Desktop compositions share the exact controls and data of the mobile pages. */
+.desktop-only {
+  display: none;
+}
+
+@media (min-width: 1000px) {
+  :root {
+    --desktop-paper: #faf7f2;
+    --desktop-surface: #fffdfa;
+    --desktop-border: #dfcdbb;
+    --desktop-copper: #995029;
+    --desktop-shadow: 0 12px 36px #3825170a;
+  }
+
+  .desktop-only {
+    display: block;
+  }
+
+  .mobile-only {
+    display: none;
+  }
+
+  body.registration-page {
+    background: var(--desktop-paper);
+  }
+
+  body.registration-page::before {
+    display: none;
+  }
+
+  body.registration-page .registration-header {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 36px;
+    min-height: 150px;
+    padding: 12px max(36px, calc((100vw - 1220px) / 2));
+    background: #171614 url("../assets/locomotiva-background.webp") left 35% / cover;
+    border-bottom: 2px solid #b2703c;
+    border-radius: 0;
+  }
+
+  body.registration-page .registration-header a {
+    flex: none;
+    padding: 8px 22px;
+    border-radius: 16px;
+  }
+
+  body.registration-page .registration-header img {
+    width: 180px;
+    height: auto;
+  }
+
+  body[data-registration-step="3"] .registration-header::after {
+    display: none;
+  }
+
+  .registration-desktop-heading {
+    flex: 1;
+    max-width: 860px;
+    border-left: 1px solid #a76332;
+    padding-left: 30px;
+    color: #fff6e9;
+  }
+
+  .registration-desktop-heading h2 {
+    margin: 0;
+    font: 700 clamp(26px, 2.5vw, 36px)/1.1 Georgia, serif;
+  }
+
+  .registration-desktop-heading > p {
+    font-size: 17px;
+    margin: 8px 0 16px;
+  }
+
+  .registration-desktop-heading ul {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    gap: 20px;
+    font-size: 14px;
+  }
+
+  .registration-desktop-heading small {
+    display: block;
+    font-size: 12px;
+  }
+
+  body[data-registration-step="1"] .registration-desktop-heading,
+  body[data-registration-step="receipt"] .registration-desktop-heading {
+    display: none;
+  }
+
+  body.registration-page .registration-section {
+    position: relative;
+    z-index: 1;
+    width: min(calc(100% - 80px), 1200px);
+    max-width: 1260px;
+    margin: 0 auto 40px;
+    padding: 36px 0 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    color: #2c211a;
+  }
+
+  body.registration-page .registration-section::before {
+    display: none;
+  }
+
+  body.registration-page .registration-heading {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin: 0 0 22px;
+  }
+
+  body.registration-page .registration-section .registration-heading h1 {
+    font: 750 clamp(29px, 2.8vw, 38px)/1.15 system-ui, sans-serif;
+    letter-spacing: -.03em;
+    margin: 0;
+  }
+
+  body.registration-page .registration-heading .eyebrow {
+    display: none;
+  }
+
+  body.registration-page .registration-section .form-progress {
+    position: static;
+    clip-path: none;
+    overflow: visible;
+    display: flex;
+    width: min(850px, 85%);
+    height: auto;
+    counter-reset: desktop-stage;
+    background: linear-gradient(#b2703c, #b2703c) center / 80% 1px no-repeat;
+    margin: 0 auto 36px;
+    padding: 0;
+    gap: 24px;
+  }
+
+  body.registration-page .registration-section .form-progress li {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    padding: 0 10px 0 0;
+    border: 0;
+    border-radius: 999px;
+    color: #50453a;
+    background: var(--desktop-paper);
+    font-size: 16px;
+    font-weight: 550;
+  }
+
+  body.registration-page .registration-section .form-progress li::before {
+    counter-increment: desktop-stage;
+    content: counter(desktop-stage);
+    position: static;
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #ac7146;
+    border-radius: 50%;
+    margin-right: 10px;
+    background: #fffaf3;
+    color: inherit;
+    font-size: 22px;
+  }
+
+  body.registration-page .registration-section .form-progress li[aria-current] {
+    background: #edd4bc;
+    border-radius: 999px;
+    color: #281a11;
+    font-weight: 750;
+  }
+
+  body.registration-page .registration-section .form-progress li[aria-current]::before {
+    background: #a85b2c;
+    color: #fff;
+  }
+
+  body.registration-page .conditions-progress-label {
+    position: static;
+    width: auto;
+    height: auto;
+    clip-path: none;
+    overflow: visible;
+  }
+
+  /* Conditions: document and consent column + invitation card. */
+  #locomotiva-form #locomotiva-step-1 {
+    display: grid;
+    grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+    gap: 28px;
+    align-items: stretch;
+    padding: 0;
+  }
+
+  #locomotiva-step-1 .conditions-desktop-copy {
+    grid-column: 1;
+    grid-row: 1;
+    border: 1px solid var(--desktop-border);
+    box-shadow: var(--desktop-shadow);
+    border-radius: 15px;
+    background: var(--desktop-surface);
+    padding: 24px 30px;
+  }
+
+  #locomotiva-step-1 .registration-benefit {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0;
+    padding: 12px;
+    border: 1px solid var(--desktop-border);
+    box-shadow: var(--desktop-shadow);
+    border-radius: 15px;
+    background: var(--desktop-surface);
+    align-self: start;
+  }
+
+  #locomotiva-step-1 .registration-benefit > img {
+    height: 230px;
+    aspect-ratio: auto;
+    border-radius: 10px;
+  }
+
+  .conditions-invitation-title {
+    font-size: 30px;
+    margin: 10px 12px;
+  }
+
+  #locomotiva-step-1 .registration-benefit .conditions-voucher {
+    margin: 0;
+    border: 0;
+    border-radius: 10px;
+    padding: 12px;
+    grid-template-columns: 42px minmax(0, 1fr);
+  }
+
+  #locomotiva-step-1 .conditions-voucher strong {
+    font-size: 24px;
+  }
+
+  #locomotiva-step-1 .conditions-voucher span,
+  #locomotiva-step-1 .conditions-voucher p:last-child {
+    font-size: 15px;
+  }
+
+  #locomotiva-step-1 .registration-summary {
+    border: 0;
+    border-bottom: 1px solid #e5d5c6;
+    border-radius: 0;
+    background: transparent;
+    padding-block: 8px;
+  }
+
+  #locomotiva-step-1 .registration-summary summary {
+    padding: 8px 0;
+    font-size: 19px;
+  }
+
+  #locomotiva-step-1 .registration-summary p {
+    font-size: 15px;
+    padding: 0 0 10px;
+  }
+
+  #locomotiva-step-1 .registration-terms-link {
+    font-size: 15px;
+    color: #98471e;
+    margin: 6px 0;
+  }
+
+  #locomotiva-consents {
+    padding: 8px 0;
+    background: transparent;
+  }
+
+  #locomotiva-consents .consent-control {
+    font-size: 15px;
+    padding: 6px 0;
+  }
+
+  body.registration-page .registration-section[data-step="1"] #locomotiva-next {
+    width: auto;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 17px;
+  }
+
+  body.registration-page .registration-section[data-step="1"] #locomotiva-approval-notice {
+    margin: 14px 4px 4px;
+    font-size: 16px;
+  }
+
+  #locomotiva-step-1 .registration-benefit #locomotiva-approval-notice strong {
+    font-size: 16px;
+    color: #743a1e;
+  }
+
+  body.registration-page .registration-footer {
+    position: relative;
+    background: #191a18;
+    color: #f9eddd;
+    border-top: 1px solid #b2703c;
+    padding: 16px;
+  }
+
+  body.registration-page .registration-footer a {
+    color: #f9eddd;
+  }
+
+  body.registration-page .registration-section #locomotiva-registration-closed {
+    color: #6e5745;
+    background: #f0e7da;
+    padding: 8px 12px;
+    margin-top: 14px;
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  #locomotiva-registration-title:focus {
+    outline: none;
+  }
+
+  /* Personal data: paired fields and an independent profile sidebar. */
+  #locomotiva-form #locomotiva-step-2 {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 290px;
+    gap: 24px;
+    align-items: start;
+    padding: 0;
+  }
+
+  #locomotiva-step-2 .personal-fields {
+    grid-column: 1;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    padding: 22px;
+    gap: 22px 20px;
+    background: var(--desktop-surface);
+    border: 1px solid var(--desktop-border);
+    box-shadow: var(--desktop-shadow);
+    border-radius: 14px;
+    margin: 0;
+  }
+
+  .personal-desktop-main {
+    min-width: 0;
+  }
+
+  #locomotiva-step-2 .personal-fields > label {
+    grid-column: span 3;
+    font-size: 15px;
+    gap: 6px;
+  }
+
+  body #locomotiva-step-2 #locomotiva-city-label {
+    grid-column: span 2;
+  }
+
+  body #locomotiva-step-2 #locomotiva-uf-label {
+    grid-column: span 1;
+  }
+
+  #locomotiva-step-2 .personal-fields input,
+  #locomotiva-step-2 .personal-fields select {
+    font-size: 16px;
+    background: #fff;
+    border-color: var(--desktop-border);
+    min-height: 48px;
+    border-radius: 8px;
+  }
+
+  .personal-desktop-sidebar {
+    grid-column: 2;
+    padding: 16px;
+    border: 1px solid var(--desktop-border);
+    box-shadow: var(--desktop-shadow);
+    background: var(--desktop-surface);
+    border-radius: 14px;
+  }
+
+  #locomotiva-step-2 .personal-profile {
+    display: flex;
+    flex-direction: column;
+    background: transparent;
+    padding: 0;
+    gap: 8px;
+  }
+
+  .personal-profile img {
+    width: 120px;
+    flex: none;
+  }
+
+  .personal-profile-copy {
+    text-align: center;
+    justify-items: center;
+  }
+
+  .personal-profile-copy strong {
+    font-size: 23px;
+  }
+
+  .personal-profile-check,
+  .personal-profile-link {
+    font-size: 15px;
+  }
+
+  .personal-sidebar-dish {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-top: 12px;
+  }
+
+  #locomotiva-step-2 .personal-photo-upload {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  #locomotiva-step-2 .personal-profile-status,
+  #locomotiva-step-2 .personal-photo-help,
+  #locomotiva-step-2 .small-note {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  #locomotiva-step-2 .consent-control {
+    margin-block: 8px;
+    padding: 6px;
+    font-size: 13px;
+  }
+
+  body.registration-page .registration-section[data-step="2"] .form-actions {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  body.registration-page .registration-section[data-step="2"] .form-actions button {
+    width: auto;
+    padding-inline: 22px;
+    font-size: 17px;
+  }
+
+  /* Visit: choices on the left, live summary and actions on the right. */
+  #locomotiva-form #locomotiva-step-3 {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: 28px;
+    padding: 0;
+    align-items: start;
+  }
+
+  .visit-desktop-options,
+  .visit-desktop-sidebar {
+    border: 1px solid var(--desktop-border);
+    box-shadow: var(--desktop-shadow);
+    border-radius: 15px;
+    background: var(--desktop-surface);
+    padding: 26px;
+    min-width: 0;
+  }
+
+  .visit-desktop-sidebar h2 {
+    font-size: 24px;
+    margin: 0 0 16px;
+  }
+
+  .visit-summary-name {
+    font-size: 19px;
+    border-bottom: 1px solid #dfd0c3;
+    padding-bottom: 8px;
+    margin: 0 0 10px;
+    overflow-wrap: anywhere;
+  }
+
+  #locomotiva-step-3 .visit-subtitle {
+    text-align: left;
+    font-size: 18px;
+    margin-bottom: 14px;
+  }
+
+  #locomotiva-step-3 .date-grid {
+    padding: 0;
+    border: 0;
+    margin-bottom: 18px;
+    gap: 8px;
+  }
+
+  #locomotiva-step-3 .date-option {
+    min-height: 64px;
+    font-size: 26px;
+  }
+
+  #locomotiva-step-3 .date-option span {
+    font-size: 16px;
+  }
+
+  .visit-choice-field {
+    margin-bottom: 16px;
+  }
+
+  .visit-choice-field > label {
+    font-size: 17px;
+  }
+
+  #locomotiva-step-3 .registration-choice-button {
+    font-size: 15px;
+    min-height: 46px;
+  }
+
+  #locomotiva-time-choices {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  #locomotiva-modality-choices {
+    flex-direction: row;
+  }
+
+  #locomotiva-modality-choices .registration-choice-button {
+    font-size: 15px;
+    flex: 1 1 130px;
+  }
+
+  #locomotiva-step-3 .visit-summary {
+    display: flex;
+    flex-direction: column-reverse;
+    border: 0;
+    padding: 0;
+    gap: 16px;
+  }
+
+  .visit-summary > div {
+    width: 100%;
+    border: 0;
+    padding: 0;
+  }
+
+  .visit-summary p {
+    font-size: 19px;
+    padding: 8px 0;
+    border-bottom: 1px solid #dfd0c3;
+  }
+
+  .visit-summary img {
+    width: 100%;
+    aspect-ratio: 2.2 / 1;
+  }
+
+  body.registration-page .registration-section[data-step="3"] #locomotiva-approval-notice {
+    font-size: 15px;
+    margin-block: 16px;
+  }
+
+  body.registration-page .registration-section[data-step="3"] .form-actions {
+    display: flex;
+    flex-direction: column-reverse;
+    margin-top: 0;
+  }
+
+  body.registration-page .registration-section[data-step="3"] #locomotiva-submit,
+  body.registration-page .registration-section[data-step="3"] #locomotiva-preview-submit {
+    font-size: 18px;
+  }
+
+  .receipt-preview-notice {
+    color: #674c36;
+    font-size: 11px;
+  }
+
+  /* Receipt: four summary cards in a horizontal row, two photos below. */
+  body.registration-page .registration-section[data-step="receipt"] {
+    width: min(calc(100% - 80px), 1100px);
+    margin: 36px auto;
+    padding: 0;
+  }
+
+  .receipt-panel {
+    border-radius: 22px 22px 0 0;
+    border-bottom: 0;
+    padding: 32px 36px 24px;
+    border: 1px solid var(--desktop-border);
+    border-bottom: 0;
+    box-shadow: var(--desktop-shadow);
+  }
+
+  .registration-success-icon {
+    width: 86px;
+  }
+
+  .registration-success h1 {
+    font-size: 42px;
+    margin: 8px 0 12px;
+  }
+
+  .registration-success-state {
+    font-size: 22px;
+  }
+
+  #locomotiva-success-message {
+    max-width: none;
+    font-size: 19px;
+    margin: 12px 0 22px;
+  }
+
+  .registration-receipt-details {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .receipt-detail-card {
+    grid-template-columns: 42px minmax(0, 1fr);
+    min-height: 78px;
+    padding: 12px 8px;
+  }
+
+  .receipt-detail-card dd {
+    border-left: 0;
+    padding: 0;
+    font-size: 19px;
+  }
+
+  .receipt-detail-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .receipt-detail-meta {
+    grid-column: span 2;
+    justify-content: center;
+    grid-template-columns: 30px auto minmax(0, 1fr);
+    font-size: 16px;
+    padding: 8px 12px;
+  }
+
+  .registration-success .primary-action {
+    min-height: 44px;
+    background: transparent;
+    border: 0;
+    color: #9a4b20;
+    font-size: 19px;
+    text-decoration: underline;
+  }
+
+  .receipt-photos {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    background: #faf5ed;
+    border: 1px solid var(--desktop-border);
+    border-top: 0;
+    border-radius: 0 0 22px 22px;
+    padding: 0 14px 14px;
+  }
+
+  .receipt-photos img {
+    display: block;
+    position: static;
+    width: 100%;
+    height: 150px;
+    max-width: 100%;
+    aspect-ratio: auto;
+    object-fit: cover;
+    margin: 0;
+    border: 1px solid #b9855f;
+    border-radius: 12px;
+  }
+
+  /* Landing invitation with large food photography and a concise first-screen CTA. */
+  body.landing-page::before {
+    display: none;
+  }
+
+  .landing-header {
+    position: relative;
+    z-index: 2;
+  }
+
+  .landing-header-inner {
+    max-width: 1240px;
+    padding-block: 16px;
+  }
+
+  .landing-brand {
+    background: #fff5e6;
+    border: 2px solid #b9855f;
+    border-radius: 14px;
+    padding: 8px 24px;
+  }
+
+  .landing-brand img {
+    filter: brightness(0);
+    height: 64px;
+  }
+
+  #locomotiva-introduction {
+    background: #faf4ea;
+    color: #291e16;
+  }
+
+  .landing-hero {
+    max-width: 1240px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    padding-top: 44px;
+    padding-bottom: 48px;
+    gap: 24px 32px;
+  }
+
+  .landing-hero #locomotiva-start-button {
+    display: none;
+  }
+
+  .landing-hero-copy {
+    padding-top: 18px;
+  }
+
+  .landing-hero .landing-badge {
+    color: #9a4b20;
+    border: 1px solid #a15a31;
+    border-radius: 999px;
+    padding: 8px 16px;
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+
+  .landing-hero h1 {
+    font-size: clamp(40px, 4vw, 58px);
+  }
+
+  .landing-description {
+    color: #291e16;
+    font: 20px/1.6 system-ui, sans-serif;
+    max-width: 440px;
+  }
+
+  .landing-hero-photo {
+    height: 350px;
+    aspect-ratio: auto;
+    border-radius: 24px;
+    border-width: 1px;
+    border-color: var(--desktop-border);
+    box-shadow: 0 18px 40px #38251718;
+  }
+
+  .desktop-invitation-overview {
+    grid-column: 1 / -1;
+    text-align: center;
+  }
+
+  .desktop-invitation-benefits {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .desktop-invitation-benefits article {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    gap: 18px;
+    padding: 22px;
+    border: 1px solid var(--desktop-border);
+    border-radius: 14px;
+    background: #fffaf4;
+  }
+
+  .desktop-invitation-benefits .landing-icon {
+    width: 36px;
+    height: 36px;
+    color: var(--desktop-copper);
+  }
+
+  .desktop-invitation-benefits h2 {
+    margin: 0;
+    font: 700 20px/1.3 system-ui, sans-serif;
+  }
+
+  .desktop-invitation-benefits p {
+    margin: 4px 0 0;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .desktop-invitation-overview > .landing-action {
+    min-width: 55%;
+    font: 650 19px/1.3 system-ui, sans-serif;
+    margin-top: 12px;
+  }
+
+  .desktop-invitation-steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    counter-reset: desktop-invitation-stage;
+    gap: 24px;
+    padding: 0;
+    list-style: none;
+    text-align: left;
+    margin: 26px 0 0;
+  }
+
+  .desktop-invitation-steps li {
+    display: grid;
+    grid-template-columns: 36px minmax(0, 1fr);
+    column-gap: 12px;
+  }
+
+  .desktop-invitation-steps li::before {
+    counter-increment: desktop-invitation-stage;
+    content: counter(desktop-invitation-stage);
+    grid-row: span 2;
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #a85b2c;
+    color: #fff;
+  }
+
+  .desktop-invitation-steps strong {
+    font: 700 20px system-ui, sans-serif;
+  }
+
+  .desktop-invitation-steps span {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+}
