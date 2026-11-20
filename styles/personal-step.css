@@ -62,7 +62,6 @@ body[data-registration-step="2"] .registration-header img {
   margin: 0;
 }
 
-.registration-section[data-step="2"] .form-progress,
 #locomotiva-step-2 .personal-screen-reader {
   position: absolute;
   width: 1px;

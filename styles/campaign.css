@@ -126,11 +126,29 @@ a {
   margin: 32px 0;
 }
 .form-progress li {
+  position: relative;
   flex: 1;
   border-bottom: 2px solid var(--line);
   padding: 12px 0;
   color: var(--muted);
   font-size: 13px;
+}
+.form-progress-action {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  border: 0;
+  border-radius: inherit;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.form-progress-action:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.form-progress-action:disabled {
+  cursor: default;
 }
 .form-progress li[aria-current] {
   border-color: var(--accent);

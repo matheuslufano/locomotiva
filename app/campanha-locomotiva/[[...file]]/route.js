@@ -25,20 +25,26 @@ export async function GET(request, { params }) {
     ["127.0.0.1", "localhost", "[::1]"].includes(new URL(request.url).hostname);
   if (relativePath === "preview-config.json") {
     if (!localPreview) return new Response("Não encontrado", { status: 404 });
-    const folder = path.join(process.cwd(), "docs/campanha");
-    const draft = JSON.parse(await readFile(path.join(folder, "configuracao-rascunho.json"), "utf8"));
-    const privacy = await readFile(path.join(folder, "aviso-de-privacidade.txt"), "utf8");
-    const previewAvailability = Array.from({ length: 10 }, (_, index) => ({
-      date: "2026-11-" + (21 + index),
-      state: index < 2 ? "CLOSED" : "AVAILABLE",
-      times: {
-        lunch: ["11:00", "11:30", "12:00", "12:30", "13:00", "13:30"],
-        dinner: [],
-      },
-    }));
-    return Response.json({ ...draft, privacy, localPreview: true, previewAvailability }, {
-      headers: { "Cache-Control": "no-store" },
-    });
+    const backendUrl = new URL(process.env.LOCOMOTIVA_BACKEND_URL || "http://127.0.0.1:3001");
+    if (!["127.0.0.1", "localhost", "::1", "[::1]"].includes(backendUrl.hostname))
+      return Response.json({ error: "A previa local precisa de um backend local." }, { status: 503 });
+    try {
+      const backendBase = backendUrl.href.endsWith("/") ? backendUrl : new URL(backendUrl.href + "/");
+      const response = await fetch(new URL("locomotiva/preview-config", backendBase), {
+        cache: "no-store",
+        signal: AbortSignal.timeout(5000),
+      });
+      if (!response.ok)
+        return Response.json({ error: "Nao foi possivel carregar as configuracoes locais salvas." }, { status: 503 });
+      const preview = await response.json();
+      return Response.json({
+        ...preview.config,
+        localPreview: true,
+        previewAvailability: preview.availability,
+      }, { headers: { "Cache-Control": "no-store" } });
+    } catch {
+      return Response.json({ error: "Nao foi possivel conectar ao backend local da campanha." }, { status: 503 });
+    }
   }
   const extension = path.extname(relativePath);
   const root = process.cwd();

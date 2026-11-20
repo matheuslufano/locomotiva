@@ -120,6 +120,7 @@ function showStep(value, focus = true, navigate = true) {
     $(`step-${n}`).disabled = n !== step;
     if (n === step) $(`progress-${n}`).setAttribute("aria-current", "step");
     else $(`progress-${n}`).removeAttribute("aria-current");
+    $(`progress-button-${n}`).disabled = !config?.localPreview && n > reachedStep;
   }
   $("back").hidden = step === 1;
   $("next").hidden = step === 3;
@@ -137,6 +138,9 @@ function showStep(value, focus = true, navigate = true) {
     $("registration-title").focus({ preventScroll: true });
     window.scrollTo({ top: 0, behavior: "instant" });
   }
+}
+for (let n = 1; n <= 3; n++) {
+  $(`progress-button-${n}`).addEventListener("click", () => showStep(n));
 }
 function documents() {
   $("documents").replaceChildren();
@@ -162,12 +166,13 @@ function documents() {
 }
 async function load() {
   const result = await api("config");
-  if (!result.config.published && document.querySelector('meta[name="locomotiva-preview"]')?.content === "true") {
+  const localPreview = document.querySelector('meta[name="locomotiva-preview"]')?.content === "true";
+  if (localPreview) {
     const response = await fetch("./preview-config.json", { cache: "no-store" });
     if (!response.ok) throw new Error("Não foi possível carregar a prévia local.");
     const draft = await response.json();
     result.config = { ...result.config, ...draft, published: false };
-    if (!result.availability.length && draft.previewAvailability) {
+    if (Array.isArray(draft.previewAvailability)) {
       result.availability = draft.previewAvailability;
     }
   }
@@ -278,13 +283,23 @@ function dates() {
 }
 function times() {
   const old = $("time").value,
-    day = availability.find((d) => d.date === selectedDate);
+    day = availability.find((d) => d.date === selectedDate),
+    period = $("period").value;
   $("time").replaceChildren(new Option("Selecione", ""));
-  for (const time of day?.times[$("period").value] || [])
+  const configuredTimes = Array.isArray(day?.times?.[period])
+    ? day.times[period]
+    : (Array.isArray(config?.[period]) ? config[period] : []).filter((time) =>
+        Date.parse(`${selectedDate}T${time}:00-03:00`) >= Date.now(),
+      );
+  for (const time of [...new Set(configuredTimes)].sort())
     $("time").add(new Option(time, time));
   if ([...$("time").options].some((o) => o.value === old))
     $("time").value = old;
-  $("time-label").textContent = $("period").value === "lunch" ? "Horário (Almoço)" : $("period").value === "dinner" ? "Horário (Jantar)" : "Horário de chegada";
+  $("time-label").textContent = $("period").value === "lunch"
+    ? "Horário (Almoço)"
+    : $("period").value === "dinner"
+      ? "Horário (Jantar)"
+      : "Horário de chegada";
   $("time-empty").hidden = $("time").options.length > 1;
   $("time-empty").textContent = day && $("period").value
     ? "Nenhum horário disponível neste período."
@@ -368,7 +383,9 @@ $("period").onchange = () => {
   times();
   review();
 };
-$("time").onchange = review;
+$("time").onchange = () => {
+  review();
+};
 $("modality").onchange = review;
 for (const uf of "AC AL AP AM BA CE DF ES GO MA MT MS MG PA PB PR PE PI RJ RN RS RO RR SC SP SE TO".split(
   " ",

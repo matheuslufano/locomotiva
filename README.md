@@ -62,7 +62,7 @@ As variáveis `DATABASE_URL`, `JWT_SECRET`, `LOCOMOTIVA_DATA_KEY`, `LOCOMOTIVA_S
 
 Abrir **Campanha Locomotiva → Configurações**. A campanha inicia fechada e os campos comerciais/contratuais começam vazios. Preencher:
 
-1. Datas oferecidas dentro de 21–30/11/2026, horários de chegada no almoço e/ou jantar e antecedência mínima. Chegadas às 15h ou às 23h são rejeitadas. Fuso da campanha: UTC−03:00, correspondente a America/Araguaina nas datas da campanha.
+1. Datas oferecidas, horários de chegada no almoço e/ou jantar e capacidade diária definida nas configurações. A reserva exige um horário futuro; chegadas às 15h ou às 23h são rejeitadas. Fuso da campanha: UTC−03:00, correspondente a America/Araguaina nas datas da campanha.
 2. Endereço, contato, regras do voucher de R$ 200, acompanhantes, excedente e saldo restante.
 3. Prazo/procedimento de cancelamento e ausência, prazo/orientações de publicação e perfis a marcar.
 4. Condições completas, termo de imagem e aviso de privacidade aprovados, identificando o responsável pela aprovação.
@@ -85,7 +85,7 @@ Duplo clique é bloqueado no cliente. A chave aleatória de idempotência e o ha
 ## Reservas, convites e conteúdo
 
 - A transação grava inscrição, reserva, aceites, auditoria e e-mail em fila. O índice parcial único impede dois registros ativos na mesma data. A mesma pessoa pode enviar novas solicitações em datas diferentes usando o mesmo CPF, Instagram e e-mail. A migração `20261119160000_locomotiva_repeat_participation` remove os índices antigos de unicidade por participante.
-- Ativas: `PENDING`, `CONFIRMED`, `ATTENDED`, `ABSENT`. Recusa e cancelamento liberam a data, desde que ainda esteja configurada e dentro da antecedência permitida.
+- Ativas: `PENDING`, `CONFIRMED`, `ATTENDED`, `ABSENT`. A capacidade diária conta todas essas situações. Recusa, cancelamento e exclusão liberam uma vaga se a data continuar configurada e no futuro.
 - Transições: em análise → confirmada/recusada/cancelada; confirmada → cancelada/compareceu/não compareceu. Registros encerrados não são reativados. Presença/ausência somente após o horário da visita.
 - Troca de data/horário é permitida em análise ou confirmada, verifica conflitos e cria comunicação atualizada. Edição concorrente dos detalhes usa a revisão do cadastro.
 - Convites têm estado próprio: registrado ou envio marcado manualmente. Tokens de 32 bytes aleatórios são armazenados somente como HMAC; o link é mostrado uma vez. O token fica no fragmento da URL e é removido da barra ao abrir. Expiração: fim da campanha, em 01/12/2026 às 00h UTC−03. Não há envio automático de mensagens pelo Instagram nem comprovação de recebimento.
@@ -239,7 +239,7 @@ As três etapas usam o diálogo de erro do formulário compartilhado. Erros de c
 
 `solicitacao-recebida.html` é a quarta tela. O resumo com data, período, modalidade, e-mail e protocolo é preenchido por `scripts/registration/receipt.js` somente após resposta de sucesso da API. Os dados ficam na memória da página. Abrir diretamente ou recarregar essa URL apresenta uma orientação para concluir o cadastro, sem inventar uma confirmação ou persistir dados pessoais no histórico da URL.
 
-`scripts/registration/visit-controls.js` adiciona controles de período, horário e modalidade, vinculados aos selects nativos existentes. Os horários são derivados das opções retornadas pela configuração da API. A preferência por movimento reduzido é respeitada e os estados selecionados usam `aria-pressed`.
+`scripts/registration/visit-controls.js` adiciona controles de período, horário e modalidade, vinculados aos selects nativos existentes. Ao selecionar uma data e um período, o formulário mostra todos os horários desse período conforme a configuração da campanha, preservando os minutos. A disponibilidade da API é a fonte por data; a configuração da API completa a lista se a resposta não trouxer horários. A preferência por movimento reduzido é respeitada e os estados selecionados usam `aria-pressed`.
 
 O botão de participação da apresentação segue para `condicoes.html`; a confirmação mantém a situação **Em análise**, sem afirmar visita confirmada ou voucher liberado.
 
@@ -250,9 +250,9 @@ A primeira etapa não é mais substituída por um aviso de inscrições fechadas
 
 ## Prévia local das etapas
 
-`LOCOMOTIVA_LOCAL_PREVIEW=true` habilita navegação por Condições, Seus dados e Sua visita somente no Next.js em modo development e acessado por loopback. As páginas recebem um marcador de prévia gerado no servidor. O endpoint local `preview-config.json` lê o rascunho e a minuta de privacidade de `docs/campanha/`, identificados como simulação, sem publicar a campanha. Em produção o endpoint retorna 404.
+`LOCOMOTIVA_LOCAL_PREVIEW=true` habilita navegação por Condições, Seus dados e Sua visita somente no Next.js em modo development e acessado por loopback. As páginas recebem um marcador de prévia gerado no servidor. O endpoint local `preview-config.json` consulta o rascunho salvo no backend local, incluindo as datas e os horários de almoço e jantar, sem publicar a campanha. O endpoint de prévia do backend também aceita somente chamadas locais em modo development. Em produção o endpoint retorna 404.
 
-O backend mantém `published: false` e o envio permanece bloqueado. Não são criados horários fictícios. A seleção da visita depende dos horários reais configurados no painel. Para desativar, use `LOCOMOTIVA_LOCAL_PREVIEW=false` e reinicie o desenvolvimento.
+O backend mantém `published: false` e o envio permanece bloqueado. A prévia usa os horários reais do rascunho salvo no painel, sem criar horários fictícios. Para desativar, use `LOCOMOTIVA_LOCAL_PREVIEW=false` e reinicie o desenvolvimento.
 
 Na prévia local, o botão **Escolher visita (prévia)** permite avançar sem preencher dados pessoais ou validar o Instagram. A campanha publicada exige os campos obrigatórios, e-mails coincidentes e um link válido de perfil. O envio real permanece bloqueado na prévia.
 

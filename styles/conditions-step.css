@@ -36,7 +36,7 @@ body[data-registration-step="1"] .registration-header img {
   margin-bottom: 12px;
 }
 
-.registration-section[data-step="1"] .form-progress {
+.registration-section:is([data-step="1"], [data-step="2"], [data-step="3"]) .form-progress {
   width: min(64%, 420px);
   display: flex;
   counter-reset: conditions-stage;
@@ -46,7 +46,7 @@ body[data-registration-step="1"] .registration-header img {
   background: linear-gradient(#ece7dd, #ece7dd) center 18px / 80% 1px no-repeat;
 }
 
-.registration-section[data-step="1"] .form-progress li {
+.registration-section:is([data-step="1"], [data-step="2"], [data-step="3"]) .form-progress li {
   display: grid;
   place-items: center;
   flex: 1;
@@ -55,7 +55,7 @@ body[data-registration-step="1"] .registration-header img {
   background: transparent;
 }
 
-.registration-section[data-step="1"] .form-progress li::before {
+.registration-section:is([data-step="1"], [data-step="2"], [data-step="3"]) .form-progress li::before {
   counter-increment: conditions-stage;
   content: counter(conditions-stage);
   display: grid;
@@ -70,12 +70,12 @@ body[data-registration-step="1"] .registration-header img {
   font-weight: 750;
 }
 
-.registration-section[data-step="1"] .form-progress li[aria-current] {
+.registration-section:is([data-step="1"], [data-step="2"], [data-step="3"]) .form-progress li[aria-current] {
   background: transparent;
   border-radius: 0;
 }
 
-.registration-section[data-step="1"] .form-progress li[aria-current]::before {
+.registration-section:is([data-step="1"], [data-step="2"], [data-step="3"]) .form-progress li[aria-current]::before {
   background: linear-gradient(110deg, #a95322, #bc733b);
   border-color: #cc874e;
 }

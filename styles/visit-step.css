@@ -53,7 +53,6 @@ body[data-registration-step="3"] .registration-header a {
   font-size: clamp(32px, 5vw, 48px);
 }
 
-.registration-section[data-step="3"] .form-progress,
 #locomotiva-step-3 .visit-screen-reader {
   position: absolute;
   width: 1px;
